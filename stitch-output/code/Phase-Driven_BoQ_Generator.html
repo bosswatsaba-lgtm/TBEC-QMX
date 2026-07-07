@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TBEC QMX - Phase-Accordion BoQ Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#faf8ff",
+                      "outline": "#8c7164",
+                      "inverse-surface": "#283044",
+                      "on-tertiary-fixed-variant": "#38485d",
+                      "surface-tint": "#9d4300",
+                      "on-background": "#131b2e",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-container": "#8c9cb4",
+                      "inverse-primary": "#ffb690",
+                      "tertiary": "#505f76",
+                      "primary-fixed-dim": "#ffb690",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "primary-fixed": "#ffdbca",
+                      "secondary": "#545f73",
+                      "on-tertiary-container": "#243348",
+                      "on-error-container": "#93000a",
+                      "on-surface": "#131b2e",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "on-tertiary": "#ffffff",
+                      "primary": "#9d4300",
+                      "tertiary-fixed": "#d3e4fe",
+                      "tertiary-fixed-dim": "#b7c8e1",
+                      "surface-container-low": "#f2f3ff",
+                      "on-error": "#ffffff",
+                      "surface-container-high": "#e2e7ff",
+                      "on-primary-fixed": "#341100",
+                      "surface-dim": "#d2d9f4",
+                      "on-tertiary-fixed": "#0b1c30",
+                      "on-secondary-container": "#586377",
+                      "primary-container": "#f97316",
+                      "background": "#faf8ff",
+                      "surface-variant": "#dae2fd",
+                      "on-surface-variant": "#584237",
+                      "on-primary-container": "#582200",
+                      "inverse-on-surface": "#eef0ff",
+                      "secondary-fixed": "#d8e3fb",
+                      "error": "#ba1a1a",
+                      "surface-container-highest": "#dae2fd",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "surface-bright": "#faf8ff",
+                      "on-secondary-fixed": "#111c2d",
+                      "outline-variant": "#e0c0b1",
+                      "on-primary-fixed-variant": "#783200",
+                      "surface-container": "#eaedff",
+                      "secondary-container": "#d5e0f8"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "toolbar-height": "40px",
+                      "unit": "4px",
+                      "sidebar-width": "240px",
+                      "gutter": "8px",
+                      "container-margin": "16px"
+              },
+              "fontFamily": {
+                      "mono-label": [
+                              "JetBrains Mono"
+                      ],
+                      "data-cell": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "title-sm": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "mono-label": [
+                              "11px",
+                              {
+                                      "lineHeight": "14px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "data-cell": [
+                              "13px",
+                              {
+                                      "lineHeight": "18px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "title-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-md": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        /* Custom Accordion Logic */
+        .accordion-content {
+            display: none;
+        }
+        .accordion-toggle.active + .accordion-content {
+            display: table-row-group;
+        }
+        .accordion-icon {
+            transition: transform 0.2s ease;
+        }
+        .accordion-toggle.active .accordion-icon {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased overflow-hidden flex h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-inverse-surface dark:bg-surface-container-lowest text-primary-fixed dark:text-primary border-r border-outline-variant flex flex-col h-screen fixed left-0 top-0 z-40 w-sidebar-width">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant dark:border-outline flex flex-col gap-2">
+<h1 class="text-headline-md font-headline-md text-primary-fixed truncate">TBEC Engineering Group</h1>
+<span class="text-mono-label font-mono-label bg-outline-variant/20 px-2 py-1 rounded inline-block w-fit text-primary-fixed">Tenant Admin</span>
+</div>
+<!-- Main Tabs -->
+<div class="flex-1 py-4 flex flex-col gap-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary-fixed transition-colors">inventory_2</span>
+<span class="text-body-sm font-body-sm group-hover:text-primary-fixed transition-colors">Project Portfolios</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary-fixed transition-colors">architecture</span>
+<span class="text-body-sm font-body-sm group-hover:text-primary-fixed transition-colors">Takeoff Canvas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-primary-fixed bg-on-tertiary-fixed-variant border-l-4 border-primary-container cursor-default select-none" href="#">
+<span class="material-symbols-outlined text-[16px]">library_books</span>
+<span class="text-body-sm font-body-sm font-medium">BoQ Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary-fixed transition-colors">analytics</span>
+<span class="text-body-sm font-body-sm group-hover:text-primary-fixed transition-colors">Rate Masters</span>
+</a>
+</div>
+<!-- Footer Tabs -->
+<div class="p-4 border-t border-outline-variant dark:border-outline flex flex-col gap-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary-fixed transition-colors">settings</span>
+<span class="text-body-sm font-body-sm group-hover:text-primary-fixed transition-colors">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none group" href="#">
+<span class="material-symbols-outlined text-[16px] group-hover:text-primary-fixed transition-colors">contact_support</span>
+<span class="text-body-sm font-body-sm group-hover:text-primary-fixed transition-colors">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col h-screen md:ml-sidebar-width w-full">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-gutter h-toolbar-height z-30 shrink-0">
+<div class="flex items-center gap-4 h-full">
+<div class="text-title-sm font-title-sm text-on-surface dark:text-inverse-on-surface uppercase tracking-tight flex items-center h-full mr-4">
+                    TBEC QMX
+                </div>
+</div>
+<!-- Header Actions -->
+<div class="flex items-center gap-2 h-full">
+<button class="flex items-center gap-2 px-3 h-8 border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-body-sm font-body-sm text-on-surface rounded-none focus:outline-none focus:ring-1 focus:ring-primary-container">
+<span class="material-symbols-outlined text-[16px]">percent</span>
+                    Apply Profit/Contingency Margins
+                </button>
+<button class="flex items-center gap-2 px-3 h-8 border border-outline-variant bg-surface-container-lowest hover:bg-surface-container-high transition-colors text-body-sm font-body-sm text-on-surface rounded-none focus:outline-none focus:ring-1 focus:ring-primary-container">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                    Export to MS Excel
+                </button>
+<button class="flex items-center gap-2 px-3 h-8 bg-primary-container hover:bg-primary-container/90 transition-colors text-on-primary text-body-sm font-body-sm font-medium rounded-none focus:outline-none focus:ring-1 focus:ring-on-primary">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                    Generate Certified PDF Report
+                </button>
+<div class="w-px h-6 bg-outline-variant mx-2"></div>
+<button class="w-8 h-8 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 rounded-none">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 rounded-none">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-primary dark:text-primary-fixed-dim hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80 rounded-none">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="w-8 h-8 rounded-full bg-tertiary-container border border-outline-variant overflow-hidden ml-2 flex items-center justify-center cursor-pointer">
+<span class="material-symbols-outlined text-[20px] text-on-tertiary-container">person</span>
+</div>
+</div>
+</header>
+<!-- Spreadsheet Canvas -->
+<main class="flex-1 overflow-auto bg-surface relative flex flex-col">
+<!-- Table Container -->
+<div class="flex-1 w-full relative">
+<table class="w-full text-left border-collapse table-fixed min-w-[800px]">
+<thead class="bg-surface-container-highest sticky top-0 z-20 shadow-[0px_1px_2px_rgba(0,0,0,0.1)]">
+<tr class="text-mono-label font-mono-label text-on-surface-variant border-b border-outline-variant">
+<th class="w-10 px-2 py-2 border-r border-outline-variant text-center">#</th>
+<th class="w-24 px-4 py-2 border-r border-outline-variant">Item Code</th>
+<th class="px-4 py-2 border-r border-outline-variant">Description (SMM7)</th>
+<th class="w-24 px-4 py-2 border-r border-outline-variant text-right">Quantity</th>
+<th class="w-20 px-4 py-2 border-r border-outline-variant text-center">Unit</th>
+<th class="w-32 px-4 py-2 border-r border-outline-variant text-right">Rate ($)</th>
+<th class="w-32 px-4 py-2 text-right">Total ($)</th>
+</tr>
+</thead>
+<tbody class="text-data-cell font-data-cell bg-surface-container-lowest">
+<!-- Accordion Header 1 -->
+<tr class="accordion-toggle active bg-surface-container-high cursor-pointer hover:bg-surface-container-highest transition-colors border-b border-outline-variant group" onclick="this.classList.toggle('active')">
+<td class="px-2 py-2 border-r border-outline-variant text-center">
+<span class="material-symbols-outlined text-[16px] accordion-icon text-on-surface-variant group-hover:text-primary-container">chevron_right</span>
+</td>
+<td class="px-4 py-2 font-semibold text-on-surface" colspan="6">PHASE SECTION 1: SUBSTRUCTURE / FOUNDATION WORKS</td>
+</tr>
+<!-- Accordion Content 1 -->
+</tbody><tbody class="accordion-content">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-2 py-[4px] border-r border-outline-variant text-center text-on-surface-variant text-mono-label">1</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-mono-label text-on-surface-variant">F.1.1</td>
+<td class="px-4 py-[4px] border-r border-outline-variant">Excavation for foundations; max depth 1.0m</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">150.00</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-center text-mono-label">m³</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">12.50</td>
+<td class="px-4 py-[4px] text-right font-mono-label text-on-surface">1,875.00</td>
+</tr>
+<tr class="border-b border-outline-variant bg-[#F8FAFC] hover:bg-surface-container-low transition-colors">
+<td class="px-2 py-[4px] border-r border-outline-variant text-center text-on-surface-variant text-mono-label">2</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-mono-label text-on-surface-variant">F.1.2</td>
+<td class="px-4 py-[4px] border-r border-outline-variant">Disposal of excavated material off site</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">150.00</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-center text-mono-label">m³</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">25.00</td>
+<td class="px-4 py-[4px] text-right font-mono-label text-on-surface">3,750.00</td>
+</tr>
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-2 py-[4px] border-r border-outline-variant text-center text-on-surface-variant text-mono-label">3</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-mono-label text-on-surface-variant">C.1.1</td>
+<td class="px-4 py-[4px] border-r border-outline-variant">Concrete in strip foundations; C30/37</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label bg-surface-container focus-within:ring-1 focus-within:ring-primary-container focus-within:ring-inset">
+<input class="w-full bg-transparent border-none text-right p-0 m-0 focus:ring-0 font-mono-label" type="text" value="45.50"/>
+</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-center text-mono-label">m³</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">120.00</td>
+<td class="px-4 py-[4px] text-right font-mono-label font-medium text-on-surface">5,460.00</td>
+</tr>
+</tbody>
+<!-- Accordion Header 2 -->
+<tbody><tr class="accordion-toggle active bg-surface-container-high cursor-pointer hover:bg-surface-container-highest transition-colors border-b border-outline-variant group" onclick="this.classList.toggle('active')">
+<td class="px-2 py-2 border-r border-outline-variant text-center">
+<span class="material-symbols-outlined text-[16px] accordion-icon text-on-surface-variant group-hover:text-primary-container">chevron_right</span>
+</td>
+<td class="px-4 py-2 font-semibold text-on-surface" colspan="6">PHASE SECTION 2: SUPERSTRUCTURE</td>
+</tr>
+<!-- Accordion Content 2 -->
+</tbody><tbody class="accordion-content">
+<tr class="border-b border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="px-2 py-[4px] border-r border-outline-variant text-center text-on-surface-variant text-mono-label">4</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-mono-label text-on-surface-variant">S.2.1</td>
+<td class="px-4 py-[4px] border-r border-outline-variant">Structural steelwork; columns and beams</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">12.50</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-center text-mono-label">t</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">2,500.00</td>
+<td class="px-4 py-[4px] text-right font-mono-label text-on-surface">31,250.00</td>
+</tr>
+<tr class="border-b border-outline-variant bg-[#F8FAFC] hover:bg-surface-container-low transition-colors">
+<td class="px-2 py-[4px] border-r border-outline-variant text-center text-on-surface-variant text-mono-label">5</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-mono-label text-on-surface-variant">B.1.1</td>
+<td class="px-4 py-[4px] border-r border-outline-variant">Brickwork; facing bricks in stretcher bond</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">250.00</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-center text-mono-label">m²</td>
+<td class="px-4 py-[4px] border-r border-outline-variant text-right font-mono-label">85.00</td>
+<td class="px-4 py-[4px] text-right font-mono-label text-on-surface">21,250.00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Sticky Summary Ribbon -->
+<div class="sticky bottom-0 bg-surface-container-lowest border-t-2 border-outline-variant p-4 shadow-[0px_-2px_4px_rgba(0,0,0,0.05)] z-30 shrink-0">
+<div class="flex justify-end gap-12 max-w-7xl mx-auto w-full">
+<div class="flex flex-col gap-1 text-right">
+<span class="text-mono-label text-on-surface-variant uppercase">Subtotal</span>
+<span class="font-mono-label text-body-md text-on-surface">$63,585.00</span>
+</div>
+<div class="flex flex-col gap-1 text-right">
+<span class="text-mono-label text-on-surface-variant uppercase">Contingency (5%)</span>
+<span class="font-mono-label text-body-md text-on-surface">$3,179.25</span>
+</div>
+<div class="flex flex-col gap-1 text-right">
+<span class="text-mono-label text-on-surface-variant uppercase">Tax (20%)</span>
+<span class="font-mono-label text-body-md text-on-surface">$13,352.85</span>
+</div>
+<div class="flex flex-col gap-1 text-right border-l-2 border-outline-variant pl-6">
+<span class="text-mono-label text-primary-container font-bold uppercase">Final Tender Price</span>
+<span class="font-mono-label text-headline-md text-primary-container font-bold">$80,117.10</span>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

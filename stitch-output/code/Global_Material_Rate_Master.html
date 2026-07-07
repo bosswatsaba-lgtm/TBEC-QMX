@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+
+<html class="h-full" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TBEC QMX - Rate Masters</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-feature-settings: 'liga';
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .compact-table td {
+            padding-top: 4px;
+            padding-bottom: 4px;
+        }
+        
+        /* Custom scrollbar for data grids */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f2f3ff; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #8c9cb4; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #505f76; 
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf8ff",
+                        "outline": "#8c7164",
+                        "inverse-surface": "#283044",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-tint": "#9d4300",
+                        "on-background": "#131b2e",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8c9cb4",
+                        "inverse-primary": "#ffb690",
+                        "tertiary": "#505f76",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "primary-fixed": "#ffdbca",
+                        "secondary": "#545f73",
+                        "on-tertiary-container": "#243348",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#131b2e",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#9d4300",
+                        "tertiary-fixed": "#d3e4fe",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-low": "#f2f3ff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "on-primary-fixed": "#341100",
+                        "surface-dim": "#d2d9f4",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-secondary-container": "#586377",
+                        "primary-container": "#f97316",
+                        "background": "#faf8ff",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#584237",
+                        "on-primary-container": "#582200",
+                        "inverse-on-surface": "#eef0ff",
+                        "secondary-fixed": "#d8e3fb",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dae2fd",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-fixed": "#111c2d",
+                        "outline-variant": "#e0c0b1",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-container": "#eaedff",
+                        "secondary-container": "#d5e0f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "toolbar-height": "40px",
+                        "unit": "4px",
+                        "sidebar-width": "240px",
+                        "gutter": "8px",
+                        "container-margin": "16px"
+                    },
+                    "fontFamily": {
+                        "mono-label": ["JetBrains Mono"],
+                        "data-cell": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "data-cell": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface h-full flex overflow-hidden antialiased">
+<!-- Sidebar Navigation -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-40 bg-inverse-surface dark:bg-surface-container-lowest border-r border-outline-variant w-sidebar-width hidden md:flex">
+<!-- Header -->
+<div class="p-4 border-b border-outline-variant flex flex-col gap-2">
+<h1 class="text-headline-md font-headline-md text-primary-fixed">TBEC Engineering Group</h1>
+<div class="flex items-center gap-2 bg-on-tertiary-fixed-variant rounded px-2 py-1 w-fit">
+<span class="material-symbols-outlined text-primary-fixed text-[16px]">admin_panel_settings</span>
+<span class="text-mono-label font-mono-label text-primary-fixed uppercase">Tenant Admin</span>
+</div>
+</div>
+<!-- Main Nav -->
+<nav class="flex-1 overflow-y-auto py-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                        Project Portfolios
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">architecture</span>
+                        Takeoff Canvas
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">library_books</span>
+                        BoQ Library
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-primary-fixed bg-on-tertiary-fixed-variant border-l-4 border-primary-container cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
+                        Rate Masters
+                    </a>
+</li>
+</ul>
+</nav>
+<!-- Footer Nav -->
+<div class="border-t border-outline-variant py-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[20px]">contact_support</span>
+                        Support
+                    </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col ml-0 md:ml-sidebar-width h-screen overflow-hidden bg-background">
+<!-- Top App Bar -->
+<header class="flex justify-between items-center w-full px-gutter h-toolbar-height bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline shrink-0">
+<div class="flex items-center gap-4">
+<span class="text-title-sm font-title-sm text-on-surface dark:text-inverse-on-surface uppercase tracking-tight">TBEC QMX</span>
+</div>
+<div class="flex-1 max-w-md mx-4">
+<div class="relative flex items-center w-full h-8 rounded bg-surface-container-low border border-outline-variant focus-within:border-primary-container focus-within:ring-1 focus-within:ring-primary-container transition-all">
+<span class="material-symbols-outlined absolute left-2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full h-full bg-transparent border-none focus:ring-0 pl-8 pr-3 text-body-sm font-body-sm text-on-surface placeholder-on-surface-variant" placeholder="Search resources, codes, or projects..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="w-6 h-6 rounded-full bg-tertiary-container overflow-hidden ml-2 border border-outline-variant">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of an engineer in a hard hat, soft studio lighting, neutral background, high resolution, detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-5lpVqSTZTV-GxujjmwhAXqABJa5lBcEqE-kDHZaTLMn8NksVWiJJiBXXw0QOWjngixbtIbMVBWv5rA97P1aw0P3VaGs4Kyg_Nr7gHKnUIfZcozxpa_FjzdVmHU0iIlyBolFlDZ2Xc7pFsA-MXvewNpApr_vm8ptvLNNZr7alTJQAQ3wYL20B5L5pRw3IeiZy_mldgacKBLzBb7KQNQmo-3X8xNV7cptNq5Lv9xfz9V9ELgNH4CLY"/>
+</div>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 flex flex-col overflow-hidden p-container-margin gap-4">
+<!-- Context Header & Metrics -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 shrink-0">
+<div>
+<h2 class="text-headline-md font-headline-md text-on-surface">Centralized SMM7 / CESMM4 Material Rate Master</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Global directory of verified structural material resources and current market rates.</p>
+</div>
+<div class="flex flex-wrap items-center gap-3">
+<div class="bg-surface-container-lowest border border-outline-variant p-2 rounded flex flex-col min-w-[140px]">
+<span class="text-mono-label font-mono-label text-on-surface-variant uppercase">Total Rates</span>
+<span class="text-title-sm font-title-sm text-primary">12,458</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-2 rounded flex flex-col min-w-[140px]">
+<span class="text-mono-label font-mono-label text-on-surface-variant uppercase">Inflation Factor</span>
+<span class="text-title-sm font-title-sm text-error">+4.2% YTD</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-2 rounded flex flex-col min-w-[140px]">
+<span class="text-mono-label font-mono-label text-on-surface-variant uppercase">Last Update</span>
+<span class="text-title-sm font-title-sm text-on-surface">Today, 08:45 AM</span>
+</div>
+<button class="bg-primary-container text-white px-4 py-2 rounded text-title-sm font-title-sm hover:bg-primary transition-colors flex items-center gap-2 h-[52px]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Structural Material
+                    </button>
+</div>
+</div>
+<!-- Matrix Container -->
+<div class="flex-1 flex flex-col bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+<!-- Toolbar -->
+<div class="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container-low shrink-0">
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-2 py-1 text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high rounded transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+                            Filter Standards
+                        </button>
+<button class="flex items-center gap-1 px-2 py-1 text-body-sm font-body-sm text-on-surface hover:bg-surface-container-high rounded transition-colors border border-outline-variant">
+<span class="material-symbols-outlined text-[16px]">sort</span>
+                            Sort by Classification
+                        </button>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-mono-label font-mono-label text-on-surface-variant">VIEW:</span>
+<select class="text-body-sm font-body-sm border-outline-variant rounded bg-surface-container-lowest text-on-surface py-1 pr-8 pl-2 focus:ring-primary-container focus:border-primary-container">
+<option>CESMM4 Only</option>
+<option>SMM7 Only</option>
+<option selected="">Combined Master</option>
+</select>
+</div>
+</div>
+<!-- Data Table -->
+<div class="flex-1 overflow-auto">
+<table class="w-full text-left border-collapse compact-table">
+<thead class="sticky top-0 bg-surface-container-lowest z-10 shadow-[0_1px_2px_rgba(0,0,0,0.1)]">
+<tr>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant w-12 text-center">
+<input class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant">Standard Code</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant">Resource Classification</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant">Base Supply Unit</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant bg-surface-container-low">Tenant Base Unit Rate ($)</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-r border-outline-variant bg-surface-container-low">Wastage Allowance (%)</th>
+<th class="p-3 text-mono-label font-mono-label text-on-surface-variant uppercase border-b border-outline-variant">Last Modified By</th>
+</tr>
+</thead>
+<tbody class="text-data-cell font-data-cell text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant">
+<td class="p-3 border-r border-outline-variant text-center">
+<input class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+</td>
+<td class="p-3 border-r border-outline-variant text-primary font-mono-label">CESMM4 Class F.1</td>
+<td class="p-3 border-r border-outline-variant">Ready-Mix Concrete, Grade 30, OPC</td>
+<td class="p-3 border-r border-outline-variant">Cubic Meter (m³)</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="125.50"/>
+</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="5.0"/>
+</td>
+<td class="p-3 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-tertiary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small avatar of a professional, minimalist corporate style, sharp focus, 32x32 pixels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIiEvoS_OJSXTGM4QfirTuhdGRYdQxNkz0n-R6l33u_Y9lYYvlylJBbkpmHcLML9ng-w26i_ra4iRAkKHGDyspMh8Lnq39Qc7Xy0Px1NrCqfFuzWeIL0xkHfFQmgd9Rr8pTFOYmmGTk3xI4B1pbIN_oWpiImgYTsS2rj2M4TZ_KcKYEI6iKRrc51Sz-4u3b7WsTERoDQUF4buC2BvKcHVFSQOMFELC1lIb0CcC_iagAz8ZSwA0I48l"/>
+</div>
+<span class="text-body-sm font-body-sm">J. Smith</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-[#F8FAFC] hover:bg-surface-container transition-colors border-b border-outline-variant">
+<td class="p-3 border-r border-outline-variant text-center">
+<input class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+</td>
+<td class="p-3 border-r border-outline-variant text-primary font-mono-label">SMM7 M.2</td>
+<td class="p-3 border-r border-outline-variant">High Yield Steel Reinforcement, 16mm dia</td>
+<td class="p-3 border-r border-outline-variant">Tonne (t)</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="850.00"/>
+</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="8.5"/>
+</td>
+<td class="p-3 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-tertiary-container overflow-hidden">
+<span class="text-[10px] text-white font-bold w-full h-full flex items-center justify-center">SYS</span>
+</div>
+<span class="text-body-sm font-body-sm text-on-surface-variant">System Auto-Update</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container transition-colors border-b border-outline-variant">
+<td class="p-3 border-r border-outline-variant text-center">
+<input class="rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox"/>
+</td>
+<td class="p-3 border-r border-outline-variant text-primary font-mono-label">CESMM4 Class F.2</td>
+<td class="p-3 border-r border-outline-variant">Precast Concrete Kerbs, 125x255mm</td>
+<td class="p-3 border-r border-outline-variant">Linear Meter (m)</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="18.75"/>
+</td>
+<td class="p-0 border-r border-outline-variant bg-surface-container-lowest">
+<input class="w-full h-full p-3 border-none bg-transparent focus:ring-1 focus:ring-inset focus:ring-primary-container text-right font-mono-label" type="text" value="2.0"/>
+</td>
+<td class="p-3 flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-tertiary-container overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Small avatar of a female professional, minimalist corporate style, sharp focus, 32x32 pixels." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-s6UEkX9XBQU8m3FMSrH4N_nHnmqERrh61xgDVnZXM5zTStHQ7w3gHBEh9Bp2Jz7PkPYXYoHwVjHkRkG63UXwARVxbw1C8WxzayzronFGwubTYMdXuwlSxNCktoM-HNfYYUi9On_yp_4ll5xwwIXYGX11d6sXnMfmdRr9jTJ2BtPAu82z6VlUoNJ-_l-zY1nz_P75c6FSnT9TmoWcJIEabhtpeDtPgmTJmja9n_gsG5KUQOglEWM7"/>
+</div>
+<span class="text-body-sm font-body-sm">A. Davis</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Sticky Utility Panel -->
+<div class="shrink-0 bg-surface-container-lowest border border-outline-variant p-4 flex flex-col sm:flex-row justify-between items-center gap-4 rounded shadow-[0_-2px_10px_rgba(0,0,0,0.05)] mt-auto z-20">
+<div class="flex items-center gap-4">
+<div class="flex flex-col">
+<span class="text-mono-label font-mono-label text-on-surface-variant uppercase">Global Currency Base</span>
+<select class="text-title-sm font-title-sm border-none bg-transparent text-primary-container focus:ring-0 p-0 cursor-pointer">
+<option>USD ($)</option>
+<option>EUR (€)</option>
+<option>GBP (£)</option>
+<option>AED (د.إ)</option>
+</select>
+</div>
+<div class="h-8 w-px bg-outline-variant hidden sm:block"></div>
+<p class="text-body-sm font-body-sm text-on-surface-variant hidden md:block">
+                        Changes here will affect <strong>3 active draft projects</strong> using these base rates.
+                    </p>
+</div>
+<button class="bg-primary-container text-white px-6 py-2 text-title-sm font-title-sm hover:bg-primary transition-colors flex items-center gap-2 w-full sm:w-auto justify-center rounded">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+                    Propagate Rate Modifications
+                </button>
+</div>
+</main>
+</div>
+</body></html>

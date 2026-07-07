@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>TBEC QMX - Blueprint Quantifier Workspace</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "surface": "#faf8ff",
+                "outline": "#8c7164",
+                "inverse-surface": "#283044",
+                "on-tertiary-fixed-variant": "#38485d",
+                "surface-tint": "#9d4300",
+                "on-background": "#131b2e",
+                "surface-container-lowest": "#ffffff",
+                "tertiary-container": "#8c9cb4",
+                "inverse-primary": "#ffb690",
+                "tertiary": "#505f76",
+                "primary-fixed-dim": "#ffb690",
+                "on-secondary-fixed-variant": "#3c475a",
+                "primary-fixed": "#ffdbca",
+                "secondary": "#545f73",
+                "on-tertiary-container": "#243348",
+                "on-error-container": "#93000a",
+                "on-surface": "#131b2e",
+                "secondary-fixed-dim": "#bcc7de",
+                "on-tertiary": "#ffffff",
+                "primary": "#9d4300",
+                "tertiary-fixed": "#d3e4fe",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-container-low": "#f2f3ff",
+                "on-error": "#ffffff",
+                "surface-container-high": "#e2e7ff",
+                "on-primary-fixed": "#341100",
+                "surface-dim": "#d2d9f4",
+                "on-tertiary-fixed": "#0b1c30",
+                "on-secondary-container": "#586377",
+                "primary-container": "#f97316",
+                "background": "#faf8ff",
+                "surface-variant": "#dae2fd",
+                "on-surface-variant": "#584237",
+                "on-primary-container": "#582200",
+                "inverse-on-surface": "#eef0ff",
+                "secondary-fixed": "#d8e3fb",
+                "error": "#ba1a1a",
+                "surface-container-highest": "#dae2fd",
+                "error-container": "#ffdad6",
+                "on-secondary": "#ffffff",
+                "on-primary": "#ffffff",
+                "surface-bright": "#faf8ff",
+                "on-secondary-fixed": "#111c2d",
+                "outline-variant": "#e0c0b1",
+                "on-primary-fixed-variant": "#783200",
+                "surface-container": "#eaedff",
+                "secondary-container": "#d5e0f8"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "toolbar-height": "40px",
+                "unit": "4px",
+                "sidebar-width": "240px",
+                "gutter": "8px",
+                "container-margin": "16px"
+        },
+        "fontFamily": {
+                "mono-label": [
+                        "JetBrains Mono"
+                ],
+                "data-cell": [
+                        "Inter"
+                ],
+                "body-sm": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "title-sm": [
+                        "Inter"
+                ],
+                "display-lg": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "mono-label": [
+                        "11px",
+                        {
+                                "lineHeight": "14px",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "data-cell": [
+                        "13px",
+                        {
+                                "lineHeight": "18px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "title-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "20px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+  body { background-color: #faf8ff; }
+  .grid-pattern {
+    background-size: 40px 40px;
+    background-image: linear-gradient(to right, #dae2fd 1px, transparent 1px), linear-gradient(to bottom, #dae2fd 1px, transparent 1px);
+  }
+  /* Custom scrollbar for data grids */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #faf8ff; }
+  ::-webkit-scrollbar-thumb { background: #d2d9f4; border-radius: 4px; }
+  ::-webkit-scrollbar-thumb:hover { background: #8c9cb4; }
+</style>
+</head>
+<body class="flex h-screen overflow-hidden text-on-surface font-body-md antialiased bg-surface">
+<!-- SideNavBar -->
+<aside class="bg-inverse-surface text-primary-fixed docked h-full left-0 w-sidebar-width border-r border-outline-variant flat no shadows flex flex-col fixed left-0 top-0 z-40">
+<div class="px-container-margin py-container-margin border-b border-surface-variant">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center overflow-hidden flex-shrink-0">
+<span class="material-symbols-outlined text-primary-container text-[20px]">corporate_fare</span>
+</div>
+<div>
+<h1 class="text-headline-md font-headline-md text-primary-fixed truncate">TBEC Engineering Group</h1>
+<p class="text-mono-label font-mono-label mt-0.5 text-secondary-fixed-dim">Tenant Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-gutter px-gutter">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+          Project Portfolios
+        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-primary-fixed bg-on-tertiary-fixed-variant border-l-4 border-primary-container text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">architecture</span>
+          Takeoff Canvas
+        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+          BoQ Library
+        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+          Rate Masters
+        </a>
+</li>
+</ul>
+</nav>
+<div class="p-gutter border-t border-surface-variant">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+          Settings
+        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none text-body-sm font-body-sm" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+          Support
+        </a>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 ml-sidebar-width flex flex-col h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest text-primary docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center w-full px-gutter h-toolbar-height z-30 flex-shrink-0">
+<div class="flex items-center gap-4 pl-2">
+<div class="text-title-sm font-title-sm text-on-surface uppercase tracking-tight flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-container">polyline</span>
+        TBEC QMX
+      </div>
+<!-- Phase Switcher (Top Context Bar) -->
+<div class="ml-8 flex items-center bg-surface-container-low rounded border border-surface-variant p-0.5">
+<button class="px-3 py-1 flex items-center gap-2 text-primary font-bold border-b-2 border-primary bg-surface-container-lowest text-body-sm font-body-sm transition-colors cursor-pointer active:opacity-80">
+<div class="w-2 h-2 bg-primary-container"></div>
+          Substructure
+        </button>
+<button class="px-3 py-1 flex items-center gap-2 text-on-surface-variant font-medium text-body-sm font-body-sm hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80">
+<div class="w-2 h-2 border border-outline-variant"></div>
+          Superstructure
+        </button>
+<button class="px-3 py-1 flex items-center gap-2 text-on-surface-variant font-medium text-body-sm font-body-sm hover:bg-surface-container-high transition-colors cursor-pointer active:opacity-80">
+<div class="w-2 h-2 border border-outline-variant"></div>
+          Finishes
+        </button>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-container-high text-on-surface-variant transition-colors cursor-pointer active:opacity-80 mr-2">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<div class="w-6 h-6 rounded bg-primary-container flex items-center justify-center text-white text-mono-label font-mono-label cursor-pointer active:opacity-80">
+        JD
+      </div>
+</div>
+</header>
+<!-- Split Pane Area -->
+<div class="flex-1 flex overflow-hidden">
+<!-- Left Pane: Blueprint Viewer (65%) -->
+<section class="w-[65%] flex flex-col border-r border-outline-variant bg-surface relative">
+<!-- Toolbar Overlay -->
+<div class="absolute top-4 left-4 z-10 bg-inverse-surface rounded shadow-[0px_1px_2px_rgba(0,0,0,0.1)] border border-[#334155] p-1 flex flex-col gap-1">
+<button class="p-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant hover:text-white transition-colors" title="Set Scale">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+</button>
+<div class="w-full h-px bg-[#334155] my-0.5"></div>
+<button class="p-2 rounded text-white bg-on-tertiary-fixed-variant border-l-2 border-primary-container" title="Linear Measurement">
+<span class="material-symbols-outlined text-[18px]">timeline</span>
+</button>
+<button class="p-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant hover:text-white transition-colors" title="Area Measurement">
+<span class="material-symbols-outlined text-[18px]">format_shapes</span>
+</button>
+<button class="p-2 rounded text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant hover:text-white transition-colors" title="Point Count">
+<span class="material-symbols-outlined text-[18px]">scatter_plot</span>
+</button>
+</div>
+<!-- Blueprint Image Container with Grid Background -->
+<div class="flex-1 overflow-auto relative grid-pattern flex items-center justify-center p-8">
+<div class="relative max-w-full max-h-full border border-outline-variant bg-white shadow-sm p-2">
+<img alt="Blueprint Viewer" class="object-contain w-full h-full opacity-90" src="https://lh3.googleusercontent.com/aida/AP1WRLs98YLDM2WkBpAtE4K7gB8XCoxb7UZwKO1tSzJD9zWQ9nYhvV1-IatEezRzHRPdrSdEv9NRKuHEJsh5rGBVn4BkGEK_icJDnb2GAzNmhhom6Kx8nPk7ZkTk5tG52Igvj50EWGP5Mh6kwS6oLbPxXVb07X4q68ctUegndBS19HlpSkzRF1QZMGdL9aB5tJU2iv8LJUfNx_NHHVqC5X5dd3orryJwSSaC7A9fdhkQU4FQA1CFF7OoeAzcrKQ"/>
+<!-- Simulated active measurement overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 5;">
+<path d="M 100,150 L 300,150 L 300,450" fill="none" stroke="#f97316" stroke-dasharray="4,4" stroke-width="2"></path>
+<circle cx="100" cy="150" fill="#f97316" r="4"></circle>
+<circle cx="300" cy="150" fill="#f97316" r="4"></circle>
+<circle cx="300" cy="450" fill="#f97316" r="4"></circle>
+<rect fill="rgba(255,255,255,0.9)" height="20" stroke="#f97316" stroke-width="1" width="40" x="280" y="280"></rect>
+<text fill="#131b2e" font-family="Inter" font-size="10" text-anchor="middle" x="300" y="293">12.5m</text>
+</svg>
+</div>
+</div>
+<!-- Bottom Status Bar for Viewer -->
+<div class="h-8 border-t border-outline-variant bg-surface-container-lowest flex items-center justify-between px-3 text-mono-label font-mono-label text-secondary">
+<div class="flex items-center gap-4">
+<span class="flex items-center gap-1"><span class="w-2 h-2 bg-primary-container"></span> Scale: 1:100</span>
+<span>Snap: ON</span>
+</div>
+<div class="flex items-center gap-2">
+<span>X: 1450.2</span>
+<span>Y: -820.5</span>
+</div>
+</div>
+</section>
+<!-- Right Pane: Standardized Takeoff Stream (35%) -->
+<section class="w-[35%] flex flex-col bg-surface-container-lowest">
+<div class="p-3 border-b border-outline-variant bg-surface-container flex justify-between items-center">
+<h2 class="text-title-sm font-title-sm text-on-surface flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary">list_alt</span>
+          Standardized Takeoff Stream
+        </h2>
+<button class="text-mono-label font-mono-label bg-primary-container text-white px-2 py-1 rounded-sm hover:bg-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">add</span> NEW
+        </button>
+</div>
+<!-- Measurement List -->
+<div class="flex-1 overflow-y-auto p-2 space-y-2">
+<!-- Active Measurement Item -->
+<div class="border border-primary-container bg-surface-container-low p-2 relative">
+<div class="absolute top-0 left-0 w-1 h-full bg-primary-container"></div>
+<div class="flex justify-between items-start mb-2 pl-2">
+<div>
+<span class="text-mono-label font-mono-label bg-[#e2e8f0] text-on-surface px-1 py-0.5 rounded-sm">L-042</span>
+<span class="text-data-cell font-data-cell font-semibold ml-2">Foundation Wall A</span>
+</div>
+<span class="text-mono-label font-mono-label text-primary-container font-bold">45.2 m</span>
+</div>
+<div class="grid grid-cols-2 gap-2 mt-2 pl-2">
+<div>
+<label class="text-[10px] text-secondary uppercase tracking-wider mb-1 block">Phase</label>
+<select class="w-full text-data-cell font-data-cell border-outline-variant rounded-sm py-1 px-2 bg-white focus:border-primary-container focus:ring-0">
+<option selected="">Substructure</option>
+<option>Superstructure</option>
+</select>
+</div>
+<div>
+<label class="text-[10px] text-secondary uppercase tracking-wider mb-1 block">SMM7 Code</label>
+<select class="w-full text-data-cell font-data-cell border-outline-variant rounded-sm py-1 px-2 bg-white focus:border-primary-container focus:ring-0">
+<option>E10.1</option>
+<option selected="">F10.111</option>
+<option>F10.2</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Completed Measurement Item 1 -->
+<div class="border border-outline-variant bg-white p-2">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-mono-label font-mono-label bg-[#e2e8f0] text-on-surface px-1 py-0.5 rounded-sm">A-012</span>
+<span class="text-data-cell font-data-cell ml-2">Slab Area Z1</span>
+</div>
+<span class="text-mono-label font-mono-label text-on-surface">124.5 m²</span>
+</div>
+<div class="flex gap-2 text-[10px] text-secondary">
+<span class="bg-surface-variant px-1 rounded-sm">Substructure</span>
+<span class="bg-surface-variant px-1 rounded-sm">E10.1</span>
+</div>
+</div>
+<!-- Completed Measurement Item 2 -->
+<div class="border border-outline-variant bg-white p-2">
+<div class="flex justify-between items-start mb-2">
+<div>
+<span class="text-mono-label font-mono-label bg-[#e2e8f0] text-on-surface px-1 py-0.5 rounded-sm">V-003</span>
+<span class="text-data-cell font-data-cell ml-2">Pier Excavation</span>
+</div>
+<span class="text-mono-label font-mono-label text-on-surface">18.2 m³</span>
+</div>
+<div class="flex gap-2 text-[10px] text-secondary">
+<span class="bg-surface-variant px-1 rounded-sm">Substructure</span>
+<span class="bg-surface-variant px-1 rounded-sm">D20.2</span>
+</div>
+</div>
+</div>
+<!-- Right Pane Footer Summary -->
+<div class="p-3 border-t border-outline-variant bg-surface-container-low">
+<div class="flex justify-between items-center text-body-sm font-body-sm">
+<span class="text-secondary">Substructure Items:</span>
+<span class="font-bold text-on-surface">24</span>
+</div>
+<div class="w-full bg-outline-variant h-1 mt-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full w-[45%]"></div>
+</div>
+</div>
+</section>
+</div>
+</main>
+</body></html>

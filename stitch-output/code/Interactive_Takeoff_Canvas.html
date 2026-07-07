@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuantifyPro - Takeoff Canvas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-primary-container": "#582200",
+                      "on-surface-variant": "#584237",
+                      "on-background": "#0b1c30",
+                      "secondary-fixed": "#d8e3fb",
+                      "primary-container": "#f97316",
+                      "on-primary-fixed-variant": "#783200",
+                      "surface-tint": "#9d4300",
+                      "primary": "#9d4300",
+                      "surface-variant": "#d3e4fe",
+                      "tertiary-fixed-dim": "#89ceff",
+                      "secondary-fixed-dim": "#bcc7de",
+                      "error": "#ba1a1a",
+                      "background": "#f8f9ff",
+                      "tertiary-fixed": "#c9e6ff",
+                      "outline": "#8c7164",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-container": "#003650",
+                      "on-secondary-fixed": "#111c2d",
+                      "on-tertiary": "#ffffff",
+                      "surface-bright": "#f8f9ff",
+                      "on-error": "#ffffff",
+                      "on-primary-fixed": "#341100",
+                      "tertiary-container": "#09a4e8",
+                      "on-surface": "#0b1c30",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#ffb690",
+                      "on-secondary-container": "#586377",
+                      "surface": "#f8f9ff",
+                      "outline-variant": "#e0c0b1",
+                      "error-container": "#ffdad6",
+                      "inverse-primary": "#ffb690",
+                      "on-secondary": "#ffffff",
+                      "secondary-container": "#d5e0f8",
+                      "secondary": "#545f73",
+                      "surface-dim": "#cbdbf5",
+                      "inverse-surface": "#213145",
+                      "surface-container-highest": "#d3e4fe",
+                      "surface-container": "#e5eeff",
+                      "primary-fixed": "#ffdbca",
+                      "on-tertiary-fixed-variant": "#004c6e",
+                      "inverse-on-surface": "#eaf1ff",
+                      "surface-container-high": "#dce9ff",
+                      "surface-container-low": "#eff4ff",
+                      "on-secondary-fixed-variant": "#3c475a",
+                      "tertiary": "#006591",
+                      "on-tertiary-fixed": "#001e2f",
+                      "surface-container-lowest": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "row_height_dense": "32px",
+                      "sidebar_width": "240px",
+                      "gutter": "12px",
+                      "panel_width": "320px",
+                      "row_height_standard": "40px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "display": [
+                              "Inter"
+                      ],
+                      "headline": [
+                              "Inter"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-lg": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Technical Background Pattern for Canvas */
+        .grid-bg {
+            background-size: 40px 40px;
+            background-image:
+                linear-gradient(to right, rgba(148, 163, 184, 0.2) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(148, 163, 184, 0.2) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex font-body-sm">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface dark:bg-surface border-b border-outline-variant dark:border-outline flex justify-between items-center w-full px-gutter h-row_height_standard">
+<div class="flex items-center gap-4">
+<span class="font-display text-display text-primary dark:text-primary-container tracking-tight">QuantifyPro</span>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-lg">search</span>
+<input class="pl-8 pr-4 py-1 text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 focus:outline-none w-64 rounded-none" placeholder="Search projects..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none text-on-surface-variant dark:text-on-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar (Collapsed Rail Variant for Takeoff) -->
+<nav class="fixed left-0 top-row_height_standard bottom-0 z-40 bg-inverse-surface dark:bg-on-background border-r border-outline dark:border-on-surface-variant w-16 flex flex-col items-center py-4 gap-6">
+<!-- Tabs -->
+<div class="flex flex-col w-full items-center gap-2 flex-grow">
+<!-- Inactive -->
+<button class="w-12 h-12 flex items-center justify-center text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 rounded-none transition-colors group relative" title="Projects">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="folder">folder</span>
+</button>
+<!-- Active -->
+<button class="w-12 h-12 flex items-center justify-center bg-secondary-container/10 border-l-[3px] border-primary-container text-primary-container scale-[0.98] transition-transform duration-150 rounded-none group relative" title="Takeoff Canvas">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="architecture">architecture</span>
+</button>
+<!-- Inactive -->
+<button class="w-12 h-12 flex items-center justify-center text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 rounded-none transition-colors group relative" title="BoQ Generator">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="list_alt">list_alt</span>
+</button>
+<!-- Inactive -->
+<button class="w-12 h-12 flex items-center justify-center text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 rounded-none transition-colors group relative" title="Material Master">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="database">database</span>
+</button>
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col w-full items-center gap-2 pb-4">
+<button class="w-12 h-12 flex items-center justify-center text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 rounded-none transition-colors" title="Settings">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="settings">settings</span>
+</button>
+<button class="w-12 h-12 flex items-center justify-center text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 rounded-none transition-colors" title="Support">
+<span class="material-symbols-outlined font-body-lg text-body-lg" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</nav>
+<!-- Main Workspace (Split Pane) -->
+<main class="ml-16 mt-row_height_standard flex-1 h-[calc(100vh-40px)] flex bg-surface-bright">
+<!-- Left Pane: Takeoff Canvas (70%) -->
+<div class="w-[70%] h-full relative border-r border-outline-variant flex flex-col">
+<!-- Floating Toolbar -->
+<div class="absolute top-4 left-1/2 -translate-x-1/2 bg-inverse-surface border border-outline shadow-sm z-10 flex items-center p-1 gap-1">
+<button class="w-8 h-8 flex items-center justify-center text-on-secondary hover:bg-on-secondary-fixed-variant/20 transition-colors" title="Scale Tool">
+<span class="material-symbols-outlined text-[18px]">straighten</span>
+</button>
+<div class="w-px h-6 bg-on-secondary-fixed-variant mx-1"></div>
+<button class="w-8 h-8 flex items-center justify-center text-on-secondary hover:bg-on-secondary-fixed-variant/20 transition-colors bg-secondary-container/20 border border-primary-container" title="Linear Wall Measure">
+<span class="material-symbols-outlined text-[18px] text-primary-container">timeline</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-secondary hover:bg-on-secondary-fixed-variant/20 transition-colors" title="Area Boundary Tracer">
+<span class="material-symbols-outlined text-[18px]">polyline</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-secondary hover:bg-on-secondary-fixed-variant/20 transition-colors" title="Point Count Drop">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+</button>
+</div>
+<!-- Canvas Area -->
+<div class="flex-1 bg-surface-container-lowest overflow-hidden relative cursor-crosshair">
+<!-- Grid Background -->
+<div class="absolute inset-0 grid-bg opacity-50"></div>
+<!-- Blueprint Image Placeholder -->
+<div class="absolute inset-0 flex items-center justify-center p-12">
+<div class="w-full h-full border-2 border-dashed border-outline-variant/50 relative" data-alt="A precise, technical architectural blueprint schematic displayed on a digital drafting canvas. The blueprint features thin, sharp lines detailing walls, doors, and foundational structures against a minimalist light-mode background. Industrial orange highlights indicate active measurement areas. The overall style is rigorous, clean, and typical of high-end professional CAD software." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCFxD0KuB5-Iguyry3eEaUSmVAAyuZ5yk-_ZnTu9aZWCJsBDqHlG2pTQCykIa29Y1fCfSbzgktBB_b_XOA1JCFYT02DYoBmYZFMC5IT1pX2FZ5LukqA9rXLfeBTFogLlwslXLJEPvZP1rv4x2fIzSPamBoP7wT-7b8HNj9s1Mj17Rupr0T85Ut5t1ljgeY6GnqLq4-PUyfLMWJ4MWSv9nCbTJ7AeU4uMzsZKtEzFLLARHqkApS4rIdT')">
+<!-- Simulated Takeoff Overlay Data -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" viewbox="0 0 800 600">
+<!-- Completed Measure -->
+<path d="M 100 100 L 300 100 L 300 250 L 100 250 Z" fill="rgba(148, 163, 184, 0.2)" stroke="#94A3B8" stroke-dasharray="4" stroke-width="2"></path>
+<text class="font-data-mono text-[10px] fill-on-surface-variant" text-anchor="middle" x="200" y="175">Slab: 110m²</text>
+<!-- Active Measure -->
+<path d="M 400 300 L 600 300 L 600 450" fill="none" stroke="#f97316" stroke-width="2"></path>
+<circle cx="400" cy="300" fill="#f97316" r="4"></circle>
+<circle cx="600" cy="300" fill="#f97316" r="4"></circle>
+<circle cx="600" cy="450" fill="#f97316" r="4"></circle>
+<text class="font-data-mono text-[10px] fill-primary-container" text-anchor="middle" x="500" y="290">24.5m</text>
+<!-- Count Markers -->
+<circle cx="150" cy="400" fill="#09a4e8" fill-opacity="0.5" r="6" stroke="#09a4e8" stroke-width="1"></circle>
+<circle cx="200" cy="400" fill="#09a4e8" fill-opacity="0.5" r="6" stroke="#09a4e8" stroke-width="1"></circle>
+<circle cx="250" cy="400" fill="#09a4e8" fill-opacity="0.5" r="6" stroke="#09a4e8" stroke-width="1"></circle>
+</svg>
+</div>
+</div>
+<!-- Canvas Context Footer -->
+<div class="absolute bottom-0 left-0 right-0 bg-surface border-t border-outline-variant h-row_height_dense flex justify-between items-center px-4">
+<span class="font-data-mono text-data-mono text-on-surface-variant">Scale: 1:100</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">X: 642 Y: 310</span>
+</div>
+</div>
+</div>
+<!-- Right Pane: Inspector (30%) -->
+<div class="w-[30%] h-full bg-surface flex flex-col">
+<!-- Pane Header -->
+<div class="h-row_height_standard border-b border-outline-variant px-gutter flex items-center justify-between bg-surface-container-lowest">
+<h2 class="font-headline text-headline text-on-surface">Active Measurement Streams</h2>
+<button class="text-on-surface-variant hover:text-primary-container transition-colors">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+<!-- Properties List -->
+<div class="flex-1 overflow-y-auto p-gutter space-y-4">
+<!-- Active Item (Orange Focus) -->
+<div class="border border-primary-container bg-surface-bright flex flex-col">
+<div class="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-primary-container">timeline</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Wall Segment X</span>
+</div>
+<span class="font-data-mono text-[14px] text-primary-container font-bold">24.5m</span>
+</div>
+<div class="p-3 flex flex-col gap-3">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Classification</label>
+<select class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 rounded-none text-on-surface">
+<option>Common Brickwork Walls</option>
+<option>Partition Drywall</option>
+<option>Load-bearing Concrete</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Height Override (m)</label>
+<input class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 rounded-none text-on-surface" type="text" value="3.2"/>
+</div>
+</div>
+</div>
+<!-- Completed Item -->
+<div class="border border-outline-variant bg-surface-bright flex flex-col">
+<div class="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant">polyline</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Slab Foundation Y</span>
+</div>
+<span class="font-data-mono text-[14px] text-on-surface">110m²</span>
+</div>
+<div class="p-3 flex flex-col gap-3">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Classification</label>
+<select class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 rounded-none text-on-surface">
+<option>Concrete Grade 25</option>
+<option>Concrete Grade 30</option>
+<option>Blinding Concrete</option>
+</select>
+</div>
+<div class="flex gap-2">
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Depth (m)</label>
+<input class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 rounded-none text-on-surface" type="text" value="0.4"/>
+</div>
+<div class="flex flex-col gap-1 flex-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Vol (m³)</label>
+<input class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface-container-low text-on-surface-variant rounded-none" disabled="" type="text" value="44.0"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Point Count Item -->
+<div class="border border-outline-variant bg-surface-bright flex flex-col opacity-70">
+<div class="flex items-center justify-between p-2 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-tertiary-container">location_on</span>
+<span class="font-body-sm text-body-sm font-semibold text-on-surface">Column Drop Z</span>
+</div>
+<span class="font-data-mono text-[14px] text-on-surface">3 ea</span>
+</div>
+<div class="p-3 flex flex-col gap-3">
+<div class="flex flex-col gap-1">
+<label class="font-label-caps text-label-caps text-on-surface-variant">Classification</label>
+<select class="w-full h-row_height_dense text-body-sm font-body-sm border border-outline-variant bg-surface focus:border-primary-container focus:ring-0 rounded-none text-on-surface">
+<option>Precast Column Type A</option>
+<option>Steel I-Beam Support</option>
+</select>
+</div>
+</div>
+</div>
+</div>
+<!-- Global Actions -->
+<div class="p-gutter border-t border-outline-variant bg-surface-container-lowest flex gap-2">
+<button class="flex-1 bg-surface border border-outline-variant text-on-surface h-row_height_standard font-body-sm font-semibold rounded-none hover:bg-surface-container-low transition-colors">
+                    Clear Active
+                </button>
+<button class="flex-1 bg-primary-container text-on-primary h-row_height_standard font-body-sm font-semibold rounded-none hover:bg-primary transition-colors">
+                    Save to BoQ
+                </button>
+</div>
+</div>
+</main>
+</body></html>

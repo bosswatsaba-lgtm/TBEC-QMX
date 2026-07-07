@@ -1,0 +1,721 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Takeoff Audit Log | TBEC QMX</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-background": "#131b2e",
+                        "on-secondary-fixed": "#111c2d",
+                        "inverse-surface": "#283044",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "surface-variant": "#dae2fd",
+                        "outline": "#8c7164",
+                        "on-primary-container": "#582200",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-dim": "#d2d9f4",
+                        "surface-container-high": "#e2e7ff",
+                        "secondary-fixed": "#d8e3fb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#505f76",
+                        "surface-container": "#eaedff",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-surface-variant": "#584237",
+                        "inverse-primary": "#ffb690",
+                        "background": "#faf8ff",
+                        "surface-bright": "#faf8ff",
+                        "primary-container": "#f97316",
+                        "primary": "#9d4300",
+                        "secondary": "#545f73",
+                        "surface-tint": "#9d4300",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "outline-variant": "#e0c0b1",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-container-low": "#f2f3ff",
+                        "surface": "#faf8ff",
+                        "on-surface": "#131b2e",
+                        "inverse-on-surface": "#eef0ff",
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#ffb690",
+                        "primary-fixed": "#ffdbca",
+                        "on-tertiary-container": "#243348",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "tertiary-container": "#8c9cb4",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "on-primary-fixed": "#341100",
+                        "on-error": "#ffffff",
+                        "surface-container-highest": "#dae2fd",
+                        "on-secondary-container": "#586377",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-container": "#d5e0f8",
+                        "industrial-slate": "#505f76"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "8px",
+                        "sidebar-width": "240px",
+                        "container-margin": "16px",
+                        "unit": "4px",
+                        "toolbar-height": "40px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "data-cell": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "mono-label": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "data-cell": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                        "title-sm": ["14px", {"lineHeight": "20px", "fontWeight": "600"}],
+                        "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "mono-label": ["11px", {"lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .technical-shadow { box-shadow: 0px 1px 2px rgba(0,0,0,0.1); }
+        .zebra-row:nth-child(even) { background-color: #F8FAFC; }
+        .zebra-row:nth-child(odd) { background-color: #FFFFFF; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-background text-on-background">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-surface-container-lowest flex justify-between items-center w-full px-gutter h-toolbar-height border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<span class="text-title-sm font-title-sm text-on-surface uppercase tracking-tight">TBEC QMX</span>
+<div class="hidden md:flex items-center gap-2 px-3 py-1 bg-surface-container rounded-sm border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-tertiary">link</span>
+<span class="text-mono-label font-mono-label">qmx.tbecgroup.org</span>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<nav class="hidden lg:flex items-center gap-6">
+<a class="text-body-md font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Dashboard</a>
+<a class="text-body-md font-body-md text-primary font-bold border-b-2 border-primary px-2 py-1" href="#">Audit Logs</a>
+<a class="text-body-md font-body-md text-on-surface-variant hover:bg-surface-container-high transition-colors px-2 py-1" href="#">Reports</a>
+</nav>
+<div class="flex items-center gap-2">
+<button class="material-symbols-outlined p-1 hover:bg-surface-container-high transition-colors cursor-pointer">notifications</button>
+<button class="material-symbols-outlined p-1 hover:bg-surface-container-high transition-colors cursor-pointer">settings</button>
+<button class="material-symbols-outlined p-1 hover:bg-surface-container-high transition-colors cursor-pointer">help</button>
+<div class="ml-2 flex items-center gap-2 border-l border-outline-variant pl-4">
+<div class="text-right">
+<p class="text-title-sm font-title-sm leading-none">Alex Sterling</p>
+<p class="text-mono-label font-mono-label text-tertiary uppercase">Tenant Admin</p>
+</div>
+<img class="w-7 h-7 rounded-full object-cover border border-outline-variant" data-alt="A professional headshot of a middle-aged male civil engineer with short hair, wearing a navy blue polo shirt. The background is a blurred high-tech engineering office with architectural drawings on large screens. The lighting is crisp and natural, reflecting a clean industrial light-mode aesthetic with subtle warmth." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcqe3bQQY0e36w01WEMBD7hYvvEmCfnNpPJGTRAa1jJB7cPHJXZaMarqfXmamL44lhMRhzKi92PxzsVj-7QC57UFzz7rGsdeN9lFc9LcLoOCcsSo1cxzt5zFvmn3-9hUnD8MXANKvyfGJ99GmnvP9kEZODLjTdo8Uzft6KY0seXIvtfwYnO4FtpvMcArrmkzRF1FhkCP2kS4AR4Um7tX_gwFoGUxIXi0USX1Qy2KnNYup794YsWpMM">
+</div>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="flex flex-col h-screen fixed left-0 top-0 z-40 bg-inverse-surface w-sidebar-width border-r border-outline-variant pt-12">
+<div class="p-4 border-b border-[#334155]">
+<p class="text-headline-md font-headline-md text-primary-fixed leading-tight">TBEC Engineering Group</p>
+<div class="mt-2 inline-block bg-on-secondary-fixed-variant px-2 py-0.5 rounded-sm">
+<span class="text-mono-label font-mono-label text-white uppercase">Tenant Admin</span>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4">
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none" href="#">
+<span class="material-symbols-outlined text-[20px]">inventory_2</span>
+<span class="text-body-sm font-body-sm">Project Portfolios</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-primary-fixed bg-on-tertiary-fixed-variant border-l-4 border-primary-container cursor-default select-none" href="#">
+<span class="material-symbols-outlined text-[20px]">architecture</span>
+<span class="text-body-sm font-body-sm">Takeoff Canvas</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none" href="#">
+<span class="material-symbols-outlined text-[20px]">library_books</span>
+<span class="text-body-sm font-body-sm">BoQ Library</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all cursor-default select-none" href="#">
+<span class="material-symbols-outlined text-[20px]">analytics</span>
+<span class="text-body-sm font-body-sm">Rate Masters</span>
+</a>
+</div>
+</nav>
+<div class="p-4 border-t border-[#334155] space-y-1">
+<a class="flex items-center gap-3 px-2 py-1.5 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="text-body-sm font-body-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-2 py-1.5 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all rounded" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="text-body-sm font-body-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="ml-sidebar-width pt-toolbar-height h-screen flex flex-col overflow-hidden">
+<!-- Secondary Header / Formal Centered Report Header -->
+<div class="px-6 py-10 border-b border-outline-variant bg-white flex flex-col items-center relative"><div class="absolute top-12 right-12 pointer-events-none select-none opacity-10 -rotate-12 border-4 border-primary-container p-2 rounded-sm">
+    <span class="text-[48px] font-bold text-primary-container tracking-widest uppercase">Approved</span>
+</div>
+<!-- Formal Logo Top Center -->
+<div class="mb-6">
+<img alt="TBEC QMX" class="h-16 w-auto" src="https://lh3.googleusercontent.com/aida/AP1WRLtIA2RpimGhe8CvPR25iEEXJJ4W4TmSXjn0KGaEqsv426vLxnDSrDeJEJosJYgAke0GynRVSaqlNXunCsi0YdCKkBUF3TK0Xo2x9_nXtkthvDMDx6kOEyBnUbKXeqrMkmmpMarI1ZtuQPXgvR9UJjo0bzd0IOtMGvy479s2Jcl3gzvM8VUb9dw6ECYAkAU507TO886a1ocApDbA1giEwM0hqB285tnDPWbA-abiX-VdI6wu6izfypq47RI">
+</div>
+<!-- Project & Report Title -->
+<div class="text-center space-y-1">
+<p class="text-mono-label font-mono-label text-primary uppercase tracking-widest">Alpha Facility</p>
+<h1 class="text-display-lg font-display-lg text-industrial-slate">Superstructure Takeoff Audit Log</h1>
+<p class="text-body-md font-body-md text-tertiary">Showing all verified measurements for Phase 2</p>
+</div>
+<!-- Horizontal Divider -->
+<div class="w-full max-w-2xl h-[1px] bg-primary-container/30 my-6"></div>
+<!-- Metadata Row -->
+<div class="flex items-center justify-center gap-12 text-industrial-slate">
+<div class="flex flex-col items-center">
+<span class="text-mono-label font-mono-label uppercase opacity-60">Date</span>
+<span class="text-body-md font-bold">Oct 24, 2024</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center">
+<span class="text-mono-label font-mono-label uppercase opacity-60">Phase</span>
+<span class="text-body-md font-bold">02</span>
+</div>
+<div class="w-[1px] h-8 bg-outline-variant"></div>
+<div class="flex flex-col items-center">
+<span class="text-mono-label font-mono-label uppercase opacity-60">Tenant</span>
+<span class="text-body-md font-bold">TBEC Engineering Group</span>
+</div>
+</div>
+</div>
+<!-- Filter Bar -->
+<div class="px-6 py-3 border-b border-outline-variant bg-surface-container-low flex items-center gap-4">
+<div class="relative flex-1 max-w-sm">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-tertiary text-[20px]">search</span>
+<input class="w-full pl-10 pr-4 py-1.5 border border-outline rounded-none text-body-sm font-body-sm focus:ring-0 focus:border-primary-container bg-white" placeholder="Search measurements..." type="text">
+</div>
+<div class="flex items-center gap-3">
+<label class="text-mono-label font-mono-label text-tertiary uppercase">Standard Code:</label>
+<select class="border border-outline rounded-none py-1.5 px-3 text-body-sm font-body-sm bg-white focus:ring-0 focus:border-primary-container">
+<option>SMM7 / CESMM4 (All)</option>
+<option>SMM7 Only</option>
+<option>CESMM4 Only</option>
+</select>
+</div>
+<div class="flex items-center gap-3">
+<label class="text-mono-label font-mono-label text-tertiary uppercase">Estimator:</label>
+<select class="border border-outline rounded-none py-1.5 px-3 text-body-sm font-body-sm bg-white focus:ring-0 focus:border-primary-container">
+<option>All Estimators</option>
+<option>J. Miller</option>
+<option>R. Chen</option>
+<option>S. Patel</option>
+</select>
+</div>
+<div class="ml-auto flex items-center gap-3">
+<button class="bg-primary-container text-white px-4 py-2 font-bold flex items-center gap-2 hover:opacity-90 active:scale-95 transition-all technical-shadow">
+<span class="material-symbols-outlined">file_download</span>
+        EXPORT REPORT
+    </button>
+<button class="flex items-center gap-1 text-primary font-bold text-body-sm px-2 py-1 hover:bg-surface-container-high">
+<span class="material-symbols-outlined text-[18px]">filter_list</span>
+        ADVANCED FILTERS
+    </button>
+</div>
+</div>
+<!-- Data Grid -->
+<div class="flex-1 overflow-auto custom-scrollbar">
+<table class="w-full border-collapse">
+<thead class="sticky top-0 bg-surface-container-high z-10 border-b border-outline">
+<tr>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Timestamp</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Measurement ID</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Description</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Standard Code</th>
+<th class="text-right px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Measured Value</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Mapped Resource</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase border-r border-outline-variant">Estimator</th>
+<th class="text-left px-4 py-2.5 text-mono-label font-mono-label text-tertiary uppercase">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="zebra-row hover:bg-primary-fixed transition-colors">
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface whitespace-nowrap">Oct 24, 11:20 AM</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-primary font-bold">TRK-SUP-082</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface">External Wall Segment B, 1st Floor Slab Area</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic">SMM7 G20 / CESMM4 F1.1</td>
+<td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold">42.5 m³</td>
+<td class="px-4 py-2 text-data-cell font-data-cell">Concrete Grade 35</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="Close-up portrait of a woman in her late 30s with dark hair tied back, wearing a professional gray blazer." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWnwhkvnOIf0T_bwCjRI4APB9o5Cy_0xX3aD_NauHy8ZAZYW8jjvxyahz9j-OpQGArGaU2NUq1cGKLVwomdU_mzf9EIUi1EInDKrla18W8TwSfmjuPFtJRIm1KJvRIjq5_akz-AhI2RIlfsfINnakwePb70mYEn8reF8zZdWpEh0_xLeseKeeYLQIavPspRt7iARtQin6WAKM38Ca4Ei2KFZoA9D_R1s7BRqL-vsy_ciGR3u-TIDfC">
+<span class="text-data-cell font-data-cell">J. Miller</span>
+</div>
+</td>
+<td class="px-4 py-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+<span class="w-1.5 h-1.5 bg-green-600"></span> Verified
+                            </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="zebra-row hover:bg-primary-fixed transition-colors">
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface whitespace-nowrap">Oct 24, 10:45 AM</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-primary font-bold">TRK-SUP-081</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface">Main Core Reinforcement - Vertical Bars</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic">CESMM4 Class G.2</td>
+<td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold">1,240.0 kg</td>
+<td class="px-4 py-2 text-data-cell font-data-cell">T16 High-Yield Steel</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-2">
+<img class="w-5 h-5 rounded-full object-cover border border-outline-variant" data-alt="Portrait of a young male engineer of East Asian descent, wearing a crisp white shirt." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAIrUeYdwwbh4jDTRfTXcFjV0GWkqZM8s5VaDY1eEna4wPs4HWz2C9mkbqCNZd_LcWT0W96J3LGys7ongpHbbQHmQJ29K4AuuibG866pchbeS_5cKPnbM3qpBj-HHvAwpmdZvNKPi4Cx3-uIA905HIUx2Vicb2MkayREQ5SxNNAhqU9iFXubp5AG66Jwt4bP3HIVD5LJo_gUdxLwRkCzdsoLNHkU5Nzt6XIBUhRQWApO5yI7rGNfUiw">
+<span class="text-data-cell font-data-cell">R. Chen</span>
+</div>
+</td>
+<td class="px-4 py-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-orange-100 text-orange-800 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+<span class="w-1.5 h-1.5 bg-orange-600"></span> In Review
+                            </span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="zebra-row hover:bg-primary-fixed transition-colors">
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface whitespace-nowrap">Oct 24, 09:15 AM</td>
+<td class="px-4 py-2 text-mono-label font-mono-label text-primary font-bold">TRK-SUP-080</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-on-surface">Masonry Infill - South Elevation</td>
+<td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic">SMM7 F10</td>
+<td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold">110.0 m²</td>
+<td class="px-4 py-2 text-data-cell font-data-cell">Common Brickwork</td>
+<td class="px-4 py-2">
+<div class="flex items-center gap-2">
+<div class="w-5 h-5 rounded-full bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="text-[10px] font-bold">SP</span>
+</div>
+<span class="text-data-cell font-data-cell">S. Patel</span>
+</div>
+</td>
+<td class="px-4 py-2">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+<span class="w-1.5 h-1.5 bg-green-600"></span> Verified
+                            </span>
+</td>
+</tr>
+<!-- Filling remaining space -->
+<script>
+                        for(let i=0; i<15; i++) {
+                            document.write(`
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-0${77-i}</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element ${77-i}</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">${(Math.random()*100).toFixed(1)} unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            `);
+                        }
+                    </script>
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-077</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 77</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">43.4 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-076</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 76</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">17.8 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-075</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 75</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">62.2 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-074</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 74</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">1.9 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-073</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 73</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">3.0 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-072</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 72</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">61.4 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-071</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 71</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">11.6 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-070</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 70</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">30.0 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-069</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 69</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">36.4 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-068</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 68</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">17.7 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-067</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 67</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">21.9 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-066</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 66</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">98.3 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-065</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 65</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">74.7 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-064</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 64</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">77.4 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+                                <tr class="zebra-row hover:bg-primary-fixed transition-colors">
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Oct 23, 11:00 AM</td>
+                                    <td class="px-4 py-2 text-mono-label font-mono-label text-primary opacity-60">TRK-SUP-063</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-on-surface opacity-60">Generic Structure Element 63</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell text-tertiary italic opacity-60">SMM7 G10</td>
+                                    <td class="px-4 py-2 text-right text-data-cell font-data-cell font-bold opacity-60">40.0 unit</td>
+                                    <td class="px-4 py-2 text-data-cell font-data-cell opacity-60">General Material</td>
+                                    <td class="px-4 py-2 opacity-60">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-5 h-5 rounded-full bg-slate-200 border border-outline-variant"></div>
+                                            <span class="text-data-cell font-data-cell">System Auto</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-4 py-2">
+                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-slate-100 text-slate-600 text-[10px] font-bold uppercase tracking-wider rounded-sm">
+                                            <span class="w-1.5 h-1.5 bg-slate-400"></span> Archived
+                                        </span>
+                                    </td>
+                                </tr>
+                            
+</tbody>
+</table>
+</div>
+<!-- Footer / Summary Bar -->
+<footer class="h-12 bg-inverse-surface text-white flex items-center px-6 justify-between shrink-0">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="text-mono-label font-mono-label text-secondary-fixed-dim uppercase">Total Concrete Volume:</span>
+<span class="text-title-sm font-title-sm text-primary-fixed">1,248.40 m³</span>
+</div>
+<div class="flex items-center gap-2 border-l border-[#334155] pl-8">
+<span class="text-mono-label font-mono-label text-secondary-fixed-dim uppercase">Total Steel Weight:</span>
+<span class="text-title-sm font-title-sm text-primary-fixed">12.55 t</span>
+</div>
+<div class="flex items-center gap-2 border-l border-[#334155] pl-8">
+<span class="text-mono-label font-mono-label text-secondary-fixed-dim uppercase">Active Estimators:</span>
+<span class="text-title-sm font-title-sm text-primary-fixed">4 Members</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-1">
+<span class="text-body-sm font-body-sm text-secondary-fixed-dim">Rows per page:</span>
+<select class="bg-transparent border-none text-body-sm font-body-sm text-white focus:ring-0 cursor-pointer">
+<option class="bg-inverse-surface">25</option>
+<option class="bg-inverse-surface">50</option>
+<option class="bg-inverse-surface">100</option>
+</select>
+</div>
+<span class="text-body-sm font-body-sm text-secondary-fixed-dim border-l border-[#334155] pl-4">1-25 of 142</span>
+<div class="flex items-center gap-1">
+<button class="material-symbols-outlined text-[20px] hover:text-primary-fixed transition-colors">first_page</button>
+<button class="material-symbols-outlined text-[20px] hover:text-primary-fixed transition-colors">chevron_left</button>
+<button class="material-symbols-outlined text-[20px] hover:text-primary-fixed transition-colors">chevron_right</button>
+<button class="material-symbols-outlined text-[20px] hover:text-primary-fixed transition-colors">last_page</button>
+</div>
+</div>
+</footer>
+</main>
+<!-- Contextual Toast Notification -->
+<div class="fixed bottom-16 right-6 transition-all duration-500 bg-inverse-surface border border-primary-container p-3 technical-shadow flex items-center gap-3 translate-y-20 opacity-0" id="toast">
+<span class="material-symbols-outlined text-primary-container">sync</span>
+<span class="text-white text-body-sm font-body-sm">Syncing latest takeoff logs...</span>
+</div>
+<script>
+    // Micro-interaction: Show sync toast on load
+    window.onload = () => {
+        const toast = document.getElementById('toast');
+        setTimeout(() => {
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }, 1000);
+    }
+
+    // Mock row highlight interaction
+    document.querySelectorAll('tr').forEach(row => {
+        row.addEventListener('click', () => {
+            if (row.parentElement.tagName === 'TBODY') {
+                document.querySelectorAll('tr').forEach(r => r.classList.remove('bg-primary-fixed'));
+                row.classList.add('bg-primary-fixed');
+            }
+        });
+    });
+</script>
+
+
+</body></html>

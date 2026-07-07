@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuantifyPro - Master Project Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#582200",
+                        "on-surface-variant": "#584237",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#d8e3fb",
+                        "primary-container": "#f97316",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-tint": "#9d4300",
+                        "primary": "#9d4300",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#c9e6ff",
+                        "outline": "#8c7164",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#003650",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#341100",
+                        "tertiary-container": "#09a4e8",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary-container": "#586377",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#e0c0b1",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb690",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d5e0f8",
+                        "secondary": "#545f73",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-surface": "#213145",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed": "#ffdbca",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "tertiary": "#006591",
+                        "on-tertiary-fixed": "#001e2f",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "row_height_dense": "32px",
+                        "sidebar_width": "240px",
+                        "gutter": "12px",
+                        "panel_width": "320px",
+                        "row_height_standard": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "display": ["Inter"],
+                        "headline": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "display": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm text-body-sm antialiased overflow-hidden">
+<!-- SideNavBar -->
+<nav class="bg-inverse-surface flex flex-col fixed left-0 top-0 bottom-0 z-40 w-sidebar_width border-r border-outline">
+<div class="p-gutter border-b border-on-surface-variant flex items-center gap-unit">
+<span class="font-display text-headline text-primary-container">QP</span>
+<span class="text-on-surface-variant ml-2 font-label-caps text-label-caps tracking-widest uppercase">Estimator</span>
+</div>
+<ul class="flex flex-col py-unit flex-1 gap-1">
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 bg-secondary-container/10 border-l-[3px] border-primary-container text-primary-container scale-[0.98] transition-transform duration-150 rounded-none group cursor-pointer" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">folder</span>
+<span class="font-label-caps text-label-caps">Projects</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-secondary-fixed-variant hover:bg-on-secondary-fixed-variant/20 rounded-none group cursor-pointer transition-colors border-l-[3px] border-transparent" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg group-hover:text-primary-container">architecture</span>
+<span class="font-label-caps text-label-caps group-hover:text-primary-container">Takeoff Canvas</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-secondary-fixed-variant hover:bg-on-secondary-fixed-variant/20 rounded-none group cursor-pointer transition-colors border-l-[3px] border-transparent" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg group-hover:text-primary-container">list_alt</span>
+<span class="font-label-caps text-label-caps group-hover:text-primary-container">BoQ Generator</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-secondary-fixed-variant hover:bg-on-secondary-fixed-variant/20 rounded-none group cursor-pointer transition-colors border-l-[3px] border-transparent" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg group-hover:text-primary-container">database</span>
+<span class="font-label-caps text-label-caps group-hover:text-primary-container">Material Master</span>
+</a>
+</li>
+</ul>
+<div class="border-t border-on-surface-variant py-unit">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-secondary-fixed-variant hover:bg-on-secondary-fixed-variant/20 rounded-none group cursor-pointer transition-colors border-l-[3px] border-transparent" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg group-hover:text-primary-container">settings</span>
+<span class="font-label-caps text-label-caps group-hover:text-primary-container">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-gutter py-2 text-on-secondary-fixed-variant hover:bg-on-secondary-fixed-variant/20 rounded-none group cursor-pointer transition-colors border-l-[3px] border-transparent" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg group-hover:text-primary-container">help_outline</span>
+<span class="font-label-caps text-label-caps group-hover:text-primary-container">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="ml-sidebar_width flex flex-col h-screen overflow-hidden bg-background">
+<!-- TopNavBar -->
+<header class="bg-surface flex justify-between items-center w-full px-gutter h-row_height_standard border-b border-outline-variant shrink-0 z-30">
+<div class="flex items-center gap-2">
+<h1 class="font-headline text-headline text-primary tracking-tight">Master Project Dashboard</h1>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative w-64 mr-4 hidden md:block">
+<input class="w-full h-8 px-2 pl-8 border border-outline-variant bg-surface-bright focus:border-primary focus:ring-0 font-body-sm text-body-sm rounded-none text-on-surface placeholder:text-on-surface-variant" placeholder="Search projects, files..." type="text"/>
+<span class="material-symbols-outlined absolute left-2 top-1.5 text-on-surface-variant text-[18px]">search</span>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded-none text-on-surface-variant">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high transition-colors rounded-none text-on-surface-variant ml-2 border-l border-outline-variant pl-3">
+<span class="material-symbols-outlined text-[24px]">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-auto p-gutter flex flex-col gap-gutter bg-surface-container-lowest">
+<!-- KPI Strip -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter shrink-0">
+<div class="bg-surface border border-outline-variant p-3 flex flex-col justify-between shadow-sm rounded-none hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Total Portfolios Value</span>
+<span class="material-symbols-outlined text-outline text-[16px]">monetization_on</span>
+</div>
+<div class="font-data-mono text-headline text-on-surface tracking-tight">$42,850,000.00</div>
+<div class="mt-1 flex items-center gap-1 text-[10px] text-tertiary">
+<span class="material-symbols-outlined text-[12px]">trending_up</span>
+<span>+12.5% vs last quarter</span>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-3 flex flex-col justify-between shadow-sm rounded-none hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Active Estimations</span>
+<span class="material-symbols-outlined text-outline text-[16px]">architecture</span>
+</div>
+<div class="font-data-mono text-headline text-on-surface tracking-tight">14</div>
+<div class="mt-1 flex items-center gap-1 text-[10px] text-on-surface-variant">
+<span class="material-symbols-outlined text-[12px]">schedule</span>
+<span>3 due this week</span>
+</div>
+</div>
+<div class="bg-surface border border-outline-variant p-3 flex flex-col justify-between shadow-sm rounded-none hover:border-primary transition-colors cursor-default">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Pending Approvals</span>
+<span class="material-symbols-outlined text-outline text-[16px]">fact_check</span>
+</div>
+<div class="font-data-mono text-headline text-on-surface tracking-tight">7</div>
+<div class="mt-1 flex items-center gap-1 text-[10px] text-error">
+<span class="material-symbols-outlined text-[12px]">warning</span>
+<span>1 requires immediate attention</span>
+</div>
+</div>
+</div>
+<!-- Upload Area -->
+<div class="border-2 border-dashed border-outline-variant bg-surface hover:bg-surface-container hover:border-primary transition-all p-8 flex flex-col items-center justify-center shrink-0 cursor-pointer min-h-[160px]">
+<span class="material-symbols-outlined text-[32px] text-outline mb-3">cloud_upload</span>
+<p class="font-headline text-body-lg text-on-surface text-center mb-1">Drop Blueprint Files Here</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">Upload Architectural Blueprints (PDF, DWG, PNG) to begin automated quantity takeoff.</p>
+<button class="mt-4 bg-primary text-on-primary px-4 py-2 font-label-caps text-label-caps hover:bg-surface-tint transition-colors uppercase tracking-wider border border-transparent">Browse Local Files</button>
+</div>
+<!-- Data Table Section -->
+<div class="flex flex-col flex-1 border border-outline-variant bg-surface overflow-hidden min-h-[300px]">
+<div class="bg-surface-container-high border-b border-outline-variant px-3 py-2 flex justify-between items-center shrink-0">
+<h2 class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider">Recent Estimations Portfolio</h2>
+<div class="flex gap-2">
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">filter_list</span>
+<span class="font-label-caps text-[10px]">Filter</span>
+</button>
+<button class="flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+<span class="font-label-caps text-[10px]">Export</span>
+</button>
+</div>
+</div>
+<div class="overflow-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-dim sticky top-0 z-10 shadow-[0_1px_0_0_#e0c0b1]">
+<tr>
+<th class="py-2 px-3 font-label-caps text-[10px] uppercase text-on-surface-variant w-[250px]">Project Name</th>
+<th class="py-2 px-3 font-label-caps text-[10px] uppercase text-on-surface-variant w-[200px]">Location</th>
+<th class="py-2 px-3 font-label-caps text-[10px] uppercase text-on-surface-variant w-[150px]">Date Modified</th>
+<th class="py-2 px-3 font-label-caps text-[10px] uppercase text-on-surface-variant w-[120px]">Status</th>
+<th class="py-2 px-3 font-label-caps text-[10px] uppercase text-on-surface-variant text-right">Action</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface">
+<tr class="h-row_height_dense border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors group cursor-pointer bg-surface">
+<td class="px-3 font-body-lg text-primary flex items-center gap-2 h-full"><span class="material-symbols-outlined text-[14px]">article</span> Apex Tower Foundation</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Seattle, WA</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Oct 24, 09:15 AM</td>
+<td class="px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-label-caps uppercase bg-tertiary-container text-on-tertiary-container border border-tertiary/20">Calculating</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Open Workspace">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="h-row_height_dense border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors group cursor-pointer bg-[#F8FAFC]">
+<td class="px-3 font-body-lg text-on-surface flex items-center gap-2 h-full"><span class="material-symbols-outlined text-[14px] text-outline">article</span> Riverside Industrial Park</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Portland, OR</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Oct 23, 16:42 PM</td>
+<td class="px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-label-caps uppercase bg-secondary-container text-on-secondary-container border border-secondary/20">Draft</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Open Workspace">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="h-row_height_dense border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors group cursor-pointer bg-surface">
+<td class="px-3 font-body-lg text-on-surface flex items-center gap-2 h-full"><span class="material-symbols-outlined text-[14px] text-outline">article</span> Horizon Medical Center Wing B</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Austin, TX</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Oct 21, 11:05 AM</td>
+<td class="px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-label-caps uppercase bg-surface-variant text-primary border border-primary/30">Ready</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Open Workspace">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="h-row_height_dense border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors group cursor-pointer bg-[#F8FAFC]">
+<td class="px-3 font-body-lg text-on-surface flex items-center gap-2 h-full"><span class="material-symbols-outlined text-[14px] text-outline">article</span> Oakridge Elementary Renovation</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Denver, CO</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Oct 20, 14:30 PM</td>
+<td class="px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-label-caps uppercase bg-surface-variant text-primary border border-primary/30">Ready</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Open Workspace">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</td>
+</tr>
+<tr class="h-row_height_dense hover:bg-surface-container-highest transition-colors group cursor-pointer bg-surface">
+<td class="px-3 font-body-lg text-on-surface flex items-center gap-2 h-full"><span class="material-symbols-outlined text-[14px] text-outline">article</span> Central Hub Infrastructure Phase 1</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Chicago, IL</td>
+<td class="px-3 font-data-mono text-[11px] text-on-surface-variant">Oct 18, 08:22 AM</td>
+<td class="px-3">
+<span class="inline-flex items-center px-1.5 py-0.5 rounded-none text-[9px] font-label-caps uppercase bg-error/10 text-error border border-error/30">Revision</span>
+</td>
+<td class="px-3 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors" title="Open Workspace">
+<span class="material-symbols-outlined text-[18px]">open_in_new</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+</body></html>

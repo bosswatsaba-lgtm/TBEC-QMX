@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>QuantifyPro - BoQ Generator</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#582200",
+                        "on-surface-variant": "#584237",
+                        "on-background": "#0b1c30",
+                        "secondary-fixed": "#d8e3fb",
+                        "primary-container": "#f97316",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-tint": "#9d4300",
+                        "primary": "#9d4300",
+                        "surface-variant": "#d3e4fe",
+                        "tertiary-fixed-dim": "#89ceff",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#c9e6ff",
+                        "outline": "#8c7164",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-container": "#003650",
+                        "on-secondary-fixed": "#111c2d",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9ff",
+                        "on-error": "#ffffff",
+                        "on-primary-fixed": "#341100",
+                        "tertiary-container": "#09a4e8",
+                        "on-surface": "#0b1c30",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary-container": "#586377",
+                        "surface": "#f8f9ff",
+                        "outline-variant": "#e0c0b1",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb690",
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#d5e0f8",
+                        "secondary": "#545f73",
+                        "surface-dim": "#cbdbf5",
+                        "inverse-surface": "#213145",
+                        "surface-container-highest": "#d3e4fe",
+                        "surface-container": "#e5eeff",
+                        "primary-fixed": "#ffdbca",
+                        "on-tertiary-fixed-variant": "#004c6e",
+                        "inverse-on-surface": "#eaf1ff",
+                        "surface-container-high": "#dce9ff",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "tertiary": "#006591",
+                        "on-tertiary-fixed": "#001e2f",
+                        "surface-container-lowest": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "row_height_dense": "32px",
+                        "sidebar_width": "240px",
+                        "gutter": "12px",
+                        "panel_width": "320px",
+                        "row_height_standard": "40px",
+                        "unit": "4px"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "display": ["Inter"],
+                        "headline": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "data-mono": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "display": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.02em", "fontWeight": "600" }],
+                        "headline": ["18px", { "lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-lg": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+                        "data-mono": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for high-density tables */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8f9ff;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #bcc7de;
+            border-radius: 0;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #586377;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-sm h-screen flex overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-inverse-surface dark:bg-on-background docked left-0 h-full w-sidebar_width border-r border-outline dark:border-on-surface-variant flex flex-col fixed left-0 top-0 bottom-0 z-40 flat no shadows">
+<!-- Header -->
+<div class="p-4 flex items-center gap-3 border-b border-outline dark:border-on-surface-variant">
+<div class="w-8 h-8 bg-primary-container rounded-none flex items-center justify-center text-on-primary-container font-headline">QP</div>
+<div>
+<h1 class="font-display text-headline text-primary-container m-0">QP</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant m-0">Estimator</p>
+</div>
+</div>
+<!-- Main Nav -->
+<div class="flex-1 overflow-y-auto py-4 flex flex-col gap-1">
+<a class="text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">folder</span>
+                Projects
+            </a>
+<a class="text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">architecture</span>
+                Takeoff Canvas
+            </a>
+<a class="bg-secondary-container/10 border-l-[3px] border-primary-container text-primary-container px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps Active: scale-[0.98] transition-transform duration-150" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">list_alt</span>
+                BoQ Generator
+            </a>
+<a class="text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">database</span>
+                Material Master
+            </a>
+</div>
+<!-- Footer Nav -->
+<div class="border-t border-outline dark:border-on-surface-variant py-4 flex flex-col gap-1">
+<a class="text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">settings</span>
+                Settings
+            </a>
+<a class="text-on-secondary-fixed-variant dark:text-on-surface-variant hover:bg-on-secondary-fixed-variant/20 dark:hover:bg-surface-variant/10 px-4 py-2 flex items-center gap-3 font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined font-body-lg text-body-lg">help_outline</span>
+                Support
+            </a>
+</div>
+</nav>
+<!-- Main Viewport -->
+<main class="ml-sidebar_width flex-1 flex flex-col h-screen bg-surface">
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface dark:bg-surface docked full-width top-0 border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-gutter h-row_height_standard z-30">
+<div class="flex items-center gap-4">
+<h2 class="font-display text-display text-primary dark:text-primary-container tracking-tight m-0">QuantifyPro</h2>
+</div>
+<div class="flex items-center gap-4">
+<!-- Search Bar Placeholder -->
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-[16px]">search</span>
+<input class="pl-8 pr-3 py-1 border border-outline-variant bg-surface-bright text-body-sm font-body-sm text-on-surface focus:outline-none focus:border-primary-container rounded-none w-64 h-[28px]" placeholder="Search BoQ..." type="text"/>
+</div>
+<div class="flex items-center gap-2 text-primary dark:text-primary-container">
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined">help</span>
+</button>
+<button class="p-1 hover:bg-surface-container-high dark:hover:bg-surface-container-highest transition-colors rounded-none flex items-center justify-center">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Tool & Action Header -->
+<div class="border-b border-outline-variant bg-surface-bright px-gutter py-2 flex items-center justify-between shrink-0 h-[48px]">
+<div class="flex items-center gap-3">
+<h2 class="font-headline text-headline text-on-surface m-0">Project Alpha - Master BoQ</h2>
+<span class="px-2 py-0.5 bg-surface-container text-on-secondary-container border border-outline-variant font-label-caps text-label-caps rounded-none">DRAFT</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="px-3 h-[32px] bg-surface text-on-surface border border-outline-variant hover:bg-surface-container-low flex items-center gap-2 rounded-none font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">percent</span>
+                    Apply Tax/Contingency Margins
+                </button>
+<button class="px-3 h-[32px] bg-surface text-on-surface border border-outline-variant hover:bg-surface-container-low flex items-center gap-2 rounded-none font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">table_view</span>
+                    Export to MS Excel (.xlsx)
+                </button>
+<button class="px-3 h-[32px] bg-primary-container text-on-primary border-none hover:bg-surface-tint flex items-center gap-2 rounded-none font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                    Generate Certified PDF
+                </button>
+</div>
+</div>
+<!-- BoQ Spreadsheet Area -->
+<div class="flex-1 overflow-auto bg-surface-bright p-gutter">
+<div class="border border-outline-variant bg-white min-w-max w-full flex flex-col">
+<!-- Table Header -->
+<div class="flex border-b-[2px] border-outline-variant bg-surface-container-low sticky top-0 z-10">
+<div class="w-[100px] p-2 font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">Item Code</div>
+<div class="flex-1 min-w-[400px] p-2 font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant flex items-center">Detailed Work Description</div>
+<div class="w-[120px] p-2 font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant shrink-0 text-right flex items-center justify-end">Quantity</div>
+<div class="w-[80px] p-2 font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">Unit</div>
+<div class="w-[120px] p-2 font-label-caps text-label-caps text-on-surface-variant border-r border-outline-variant shrink-0 text-right flex items-center justify-end">Unit Rate ($)</div>
+<div class="w-[140px] p-2 font-label-caps text-label-caps text-on-surface-variant shrink-0 text-right flex items-center justify-end">Total Amount ($)</div>
+</div>
+<!-- Element 1: Substructure -->
+<div class="border-b border-outline-variant group">
+<div class="flex bg-secondary-container/20 hover:bg-secondary-container/30 cursor-pointer h-row_height_standard items-center sticky top-[34px] z-[5] border-b border-outline-variant">
+<div class="w-[32px] flex items-center justify-center shrink-0 border-r border-outline-variant h-full text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+<div class="flex-1 p-2 font-headline text-[13px] text-on-surface font-semibold tracking-wide">
+                             ELEMENT 1: SUBSTRUCTURE (Excavation &amp; Earthworks)
+                         </div>
+<div class="w-[140px] p-2 font-data-mono text-data-mono text-on-surface text-right font-bold shrink-0">
+                             $14,250.00
+                         </div>
+</div>
+<!-- Data Rows -->
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="flex h-row_height_dense border-b border-outline-variant bg-white hover:bg-surface-container-low transition-colors">
+<div class="w-[100px] px-2 py-1 font-data-mono text-data-mono text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">1.1.01</div>
+<div class="flex-1 min-w-[400px] px-2 py-1 font-body-sm text-body-sm text-on-surface border-r border-outline-variant flex items-center truncate">Site clearance; removing topsoil average 150mm deep</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">450.00</div>
+<div class="w-[80px] px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">m²</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">2.50</div>
+<div class="w-[140px] px-2 py-1 font-data-mono text-data-mono text-on-surface shrink-0 text-right flex items-center justify-end font-semibold">1,125.00</div>
+</div>
+<!-- Row 2 -->
+<div class="flex h-row_height_dense border-b border-outline-variant bg-[#F8FAFC] hover:bg-surface-container-low transition-colors">
+<div class="w-[100px] px-2 py-1 font-data-mono text-data-mono text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">1.1.02</div>
+<div class="flex-1 min-w-[400px] px-2 py-1 font-body-sm text-body-sm text-on-surface border-r border-outline-variant flex items-center truncate">Excavate trench for strip foundation, max depth 1.0m</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">120.00</div>
+<div class="w-[80px] px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">m³</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">45.00</div>
+<div class="w-[140px] px-2 py-1 font-data-mono text-data-mono text-on-surface shrink-0 text-right flex items-center justify-end font-semibold">5,400.00</div>
+</div>
+<!-- Row 3 - Active State Example -->
+<div class="flex h-row_height_dense border-b border-primary-container bg-surface-container-low border-[2px] relative z-0">
+<div class="w-[100px] px-2 py-1 font-data-mono text-data-mono text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">1.1.03</div>
+<div class="flex-1 min-w-[400px] px-2 py-1 font-body-sm text-body-sm text-on-surface border-r border-outline-variant flex items-center truncate">Disposal of excavated material off site</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">120.00</div>
+<div class="w-[80px] px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">m³</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">18.50</div>
+<div class="w-[140px] px-2 py-1 font-data-mono text-data-mono text-on-surface shrink-0 text-right flex items-center justify-end font-semibold">2,220.00</div>
+</div>
+</div>
+</div>
+<!-- Element 2: Superstructure -->
+<div class="border-b border-outline-variant group">
+<div class="flex bg-secondary-container/20 hover:bg-secondary-container/30 cursor-pointer h-row_height_standard items-center sticky top-[34px] z-[5] border-b border-outline-variant">
+<div class="w-[32px] flex items-center justify-center shrink-0 border-r border-outline-variant h-full text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">expand_more</span>
+</div>
+<div class="flex-1 p-2 font-headline text-[13px] text-on-surface font-semibold tracking-wide">
+                             ELEMENT 2: SUPERSTRUCTURE (Concrete Frame &amp; Walling)
+                         </div>
+<div class="w-[140px] p-2 font-data-mono text-data-mono text-on-surface text-right font-bold shrink-0">
+                             $45,800.00
+                         </div>
+</div>
+<div class="flex flex-col">
+<!-- Row 1 -->
+<div class="flex h-row_height_dense border-b border-outline-variant bg-white hover:bg-surface-container-low transition-colors">
+<div class="w-[100px] px-2 py-1 font-data-mono text-data-mono text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">2.1.01</div>
+<div class="flex-1 min-w-[400px] px-2 py-1 font-body-sm text-body-sm text-on-surface border-r border-outline-variant flex items-center truncate">Reinforced concrete (C35) in suspended slabs</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">85.50</div>
+<div class="w-[80px] px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">m³</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">210.00</div>
+<div class="w-[140px] px-2 py-1 font-data-mono text-data-mono text-on-surface shrink-0 text-right flex items-center justify-end font-semibold">17,955.00</div>
+</div>
+<!-- Row 2 -->
+<div class="flex h-row_height_dense border-b border-outline-variant bg-[#F8FAFC] hover:bg-surface-container-low transition-colors">
+<div class="w-[100px] px-2 py-1 font-data-mono text-data-mono text-on-surface-variant border-r border-outline-variant shrink-0 flex items-center">2.1.02</div>
+<div class="flex-1 min-w-[400px] px-2 py-1 font-body-sm text-body-sm text-on-surface border-r border-outline-variant flex items-center truncate">High yield steel reinforcement (16mm-25mm dia)</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">4500.00</div>
+<div class="w-[80px] px-2 py-1 font-body-sm text-body-sm text-on-surface-variant border-r border-outline-variant shrink-0 text-center flex items-center justify-center">kg</div>
+<div class="w-[120px] px-2 py-1 font-data-mono text-data-mono text-on-surface border-r border-outline-variant shrink-0 text-right flex items-center justify-end">1.85</div>
+<div class="w-[140px] px-2 py-1 font-data-mono text-data-mono text-on-surface shrink-0 text-right flex items-center justify-end font-semibold">8,325.00</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Ribbon -->
+<footer class="bg-inverse-surface dark:bg-on-background text-on-tertiary h-[64px] flex items-center shrink-0 border-t-[3px] border-primary-container px-gutter shrink-0">
+<div class="flex justify-between items-center w-full max-w-5xl mx-auto">
+<div class="flex gap-8">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim">Subtotal</span>
+<span class="font-data-mono text-[16px] text-white">$60,050.00</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim">Contingency (5%)</span>
+<span class="font-data-mono text-[16px] text-white">$3,002.50</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-secondary-fixed-dim">Tax Margin (10%)</span>
+<span class="font-data-mono text-[16px] text-white">$6,305.25</span>
+</div>
+</div>
+<div class="flex flex-col items-end border-l border-on-secondary-container pl-8">
+<span class="font-label-caps text-[10px] text-primary-fixed-dim tracking-widest uppercase">Estimated Gross Construction Tender Price</span>
+<span class="font-data-mono text-[24px] font-bold text-white tracking-tight">$69,357.75</span>
+</div>
+</div>
+</footer>
+</main>
+</body></html>

@@ -1,0 +1,16 @@
+﻿{
+    "deviceType":  "DESKTOP",
+    "height":  "2048",
+    "htmlCode":  {
+                     "downloadUrl":  "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1NjBiYTEwMzBlZmMwMjNiYzlkMjkyMTljMzBhEgsSBxDbm5ucthQYAZIBIwoKcHJvamVjdF9pZBIVQhM4OTA4NjY4NDY3ODUzMzUwMDk4\u0026filename=\u0026opi=89354086",
+                     "mimeType":  "text/html",
+                     "name":  "projects/8908668467853350098/screens/40c2031c717c498aaa965b5593aac2e3/fileEntries/html"
+                 },
+    "name":  "projects/8908668467853350098/screens/40c2031c717c498aaa965b5593aac2e3",
+    "screenshot":  {
+                       "downloadUrl":  "https://lh3.googleusercontent.com/aida/AP1WRLv9SFzGu6yEo-5m5nU7bBzmQNWG6-6aE3gnx5WdPKd7Usyc8mNz3lBmCdQVXFVCPL6cXz6dndLGK2tHqXIoDjVS9XYOZfEZnclZDmTFf3mE-2D9TUw3ZZYCh4KgE6BeTxSzVmEnpPOSl6HLrfdlLQGR1SUlgYnYYLlUluMvGtc-XMYGJkpH0WH945EjB3OCmSDKvJ6hGM-SC_DR9_jpPEkc2AvmKFj_SnaZXhKlohDfcMTQkmthvVr1lqo",
+                       "name":  "projects/8908668467853350098/screens/40c2031c717c498aaa965b5593aac2e3/fileEntries/screenshot"
+                   },
+    "title":  "Phase-Driven BoQ Generator",
+    "width":  "2560"
+}

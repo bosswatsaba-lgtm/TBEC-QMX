@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>TBEC QMX - Multi-Tenant Dashboard</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface": "#faf8ff",
+                        "outline": "#8c7164",
+                        "inverse-surface": "#283044",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface-tint": "#9d4300",
+                        "on-background": "#131b2e",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-container": "#8c9cb4",
+                        "inverse-primary": "#ffb690",
+                        "tertiary": "#505f76",
+                        "primary-fixed-dim": "#ffb690",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "primary-fixed": "#ffdbca",
+                        "secondary": "#545f73",
+                        "on-tertiary-container": "#243348",
+                        "on-error-container": "#93000a",
+                        "on-surface": "#131b2e",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#9d4300",
+                        "tertiary-fixed": "#d3e4fe",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "surface-container-low": "#f2f3ff",
+                        "on-error": "#ffffff",
+                        "surface-container-high": "#e2e7ff",
+                        "on-primary-fixed": "#341100",
+                        "surface-dim": "#d2d9f4",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-secondary-container": "#586377",
+                        "primary-container": "#f97316",
+                        "background": "#faf8ff",
+                        "surface-variant": "#dae2fd",
+                        "on-surface-variant": "#584237",
+                        "on-primary-container": "#582200",
+                        "inverse-on-surface": "#eef0ff",
+                        "secondary-fixed": "#d8e3fb",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#dae2fd",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-bright": "#faf8ff",
+                        "on-secondary-fixed": "#111c2d",
+                        "outline-variant": "#e0c0b1",
+                        "on-primary-fixed-variant": "#783200",
+                        "surface-container": "#eaedff",
+                        "secondary-container": "#d5e0f8"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "toolbar-height": "40px",
+                        "unit": "4px",
+                        "sidebar-width": "240px",
+                        "gutter": "8px",
+                        "container-margin": "16px"
+                    },
+                    "fontFamily": {
+                        "mono-label": ["JetBrains Mono"],
+                        "data-cell": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-md": ["Inter"],
+                        "title-sm": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "mono-label": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "500" }],
+                        "data-cell": ["13px", { "lineHeight": "18px", "fontWeight": "400" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "title-sm": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md text-body-md flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="bg-inverse-surface dark:bg-surface-container-lowest text-primary-fixed dark:text-primary border-r border-outline-variant flat no shadows flex flex-col h-screen fixed left-0 top-0 z-40 w-sidebar-width cursor-default select-none">
+<!-- Header Profile -->
+<div class="p-4 border-b border-on-tertiary-fixed-variant/50 flex items-center gap-3">
+<div class="w-10 h-10 rounded-DEFAULT bg-primary-container flex items-center justify-center text-on-primary font-title-sm text-title-sm shrink-0">
+                TE
+            </div>
+<div class="flex flex-col overflow-hidden">
+<span class="text-primary-fixed font-title-sm text-title-sm truncate">TBEC Engineering Group</span>
+<span class="text-secondary-fixed-dim font-mono-label text-mono-label uppercase mt-0.5">Tenant Admin</span>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex-1 py-4 overflow-y-auto flex flex-col gap-1">
+<!-- Active Tab -->
+<a class="flex items-center px-4 py-2 gap-3 text-primary-fixed bg-on-tertiary-fixed-variant border-l-4 border-primary-container" href="#">
+<span class="material-symbols-outlined text-[18px]">inventory_2</span>
+<span class="font-body-sm text-body-sm">Project Portfolios</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex items-center px-4 py-2 gap-3 text-secondary-fixed-dim border-l-4 border-transparent hover:bg-on-secondary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">architecture</span>
+<span class="font-body-sm text-body-sm">Takeoff Canvas</span>
+</a>
+<a class="flex items-center px-4 py-2 gap-3 text-secondary-fixed-dim border-l-4 border-transparent hover:bg-on-secondary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">library_books</span>
+<span class="font-body-sm text-body-sm">BoQ Library</span>
+</a>
+<a class="flex items-center px-4 py-2 gap-3 text-secondary-fixed-dim border-l-4 border-transparent hover:bg-on-secondary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">analytics</span>
+<span class="font-body-sm text-body-sm">Rate Masters</span>
+</a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto border-t border-on-tertiary-fixed-variant/50 py-2">
+<a class="flex items-center px-4 py-2 gap-3 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+<span class="font-body-sm text-body-sm">Settings</span>
+</a>
+<a class="flex items-center px-4 py-2 gap-3 text-secondary-fixed-dim hover:bg-on-secondary-fixed-variant transition-all" href="#">
+<span class="material-symbols-outlined text-[18px]">contact_support</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace -->
+<main class="flex-1 ml-[240px] flex flex-col min-h-screen bg-surface-container-low">
+<!-- TopNavBar -->
+<header class="bg-surface-container-lowest dark:bg-inverse-surface border-b border-outline-variant dark:border-outline flat no shadows flex justify-between items-center w-full px-gutter h-toolbar-height shrink-0">
+<!-- Brand / URL Context -->
+<div class="flex items-center gap-2 text-primary dark:text-primary-fixed-dim font-headline-md text-headline-md">
+<span class="material-symbols-outlined">dataset</span>
+<span class="text-title-sm font-title-sm text-on-surface dark:text-inverse-on-surface uppercase tracking-tight">TBEC QMX</span>
+<span class="text-outline mx-2">/</span>
+<span class="font-mono-label text-mono-label text-secondary lowercase">qmx.tbecgroup.org</span>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors rounded-DEFAULT cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined text-[20px]">help</span>
+</button>
+</div>
+</header>
+<!-- Canvas Content -->
+<div class="flex-1 p-container-margin overflow-y-auto">
+<!-- Page Header -->
+<div class="mb-6 flex justify-between items-end">
+<div>
+<h1 class="font-headline-md text-headline-md text-on-surface">Organization Dashboard</h1>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Manage cross-project analytics and initialize new quantification workflows.</p>
+</div>
+</div>
+<!-- KPI Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-body-sm text-body-sm text-secondary">Active Organization Projects</span>
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">account_tree</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">14</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-body-sm text-body-sm text-secondary">Total Quantified Cost</span>
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">account_balance_wallet</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface flex items-baseline gap-1">
+<span class="font-body-md text-body-md text-outline">$</span>
+                        124.5<span class="font-title-sm text-title-sm text-outline">M</span>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-DEFAULT flex flex-col justify-between h-28">
+<div class="flex justify-between items-start">
+<span class="font-body-sm text-body-sm text-secondary">Team Members Active</span>
+<span class="material-symbols-outlined text-tertiary-container text-[18px]">group</span>
+</div>
+<div class="font-display-lg text-display-lg text-on-surface">32</div>
+</div>
+</div>
+<!-- Create New Project Section -->
+<section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden mb-8">
+    <div class="bg-surface-container border-b border-outline-variant px-4 py-3 flex items-center gap-2">
+        <span class="material-symbols-outlined text-[18px] text-primary">analytics</span>
+        <h2 class="font-title-sm text-title-sm text-on-surface">Active Project Phase Completion</h2><span class="flex items-center gap-1.5 px-2 py-0.5 bg-error-container text-error font-mono-label text-mono-label rounded-full animate-pulse"><span class="w-1.5 h-1.5 bg-error rounded-full"></span>LIVE</span>
+    </div>
+    <div class="p-6">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <!-- Earthworks -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end"><span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                    <span class="font-title-sm text-title-sm text-on-surface">Earthworks</span>
+                    <span class="font-mono-label text-mono-label text-primary">100%</span>
+                </div>
+                <div class="h-2 bg-surface-container-high rounded-none overflow-hidden">
+                    <div class="h-full bg-primary-container w-full"></div>
+                </div>
+                <span class="font-body-sm text-body-sm text-secondary uppercase tracking-wider">Complete</span>
+            </div>
+            <!-- Substructure -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end">
+                    <span class="font-title-sm text-title-sm text-on-surface">Substructure</span>
+                    <span class="font-mono-label text-mono-label text-primary">85%</span>
+                </div>
+                <div class="h-2 bg-surface-container-high rounded-none overflow-hidden">
+                    <div class="h-full bg-primary-container w-[85%]"></div>
+                </div>
+                <span class="font-body-sm text-body-sm text-primary uppercase tracking-wider">8,450 / 9,941 m³ Quantified</span>
+            </div>
+            <!-- Superstructure -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end">
+                    <span class="font-title-sm text-title-sm text-on-surface">Superstructure</span>
+                    <span class="font-mono-label text-mono-label text-primary">20%</span>
+                </div>
+                <div class="h-2 bg-surface-container-high rounded-none overflow-hidden">
+                    <div class="h-full bg-primary-container w-[20%]"></div>
+                </div>
+                <span class="font-body-sm text-body-sm text-primary uppercase tracking-wider">1,200 / 6,000 m³ Quantified</span>
+            </div>
+            <!-- Roofing -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end">
+                    <span class="font-title-sm text-title-sm text-on-surface">Roofing</span>
+                    <span class="font-mono-label text-mono-label text-secondary">0%</span>
+                </div>
+                <div class="h-2 bg-surface-container-high rounded-none overflow-hidden">
+                    <div class="h-full bg-tertiary-container w-0"></div>
+                </div>
+                <span class="font-body-sm text-body-sm text-secondary uppercase tracking-wider">Pending</span>
+            </div>
+            <!-- Finishes -->
+            <div class="flex flex-col gap-2">
+                <div class="flex justify-between items-end">
+                    <span class="font-title-sm text-title-sm text-on-surface">Finishes</span>
+                    <span class="font-mono-label text-mono-label text-secondary">0%</span>
+                </div>
+                <div class="h-2 bg-surface-container-high rounded-none overflow-hidden">
+                    <div class="h-full bg-tertiary-container w-0"></div>
+                </div>
+                <span class="font-body-sm text-body-sm text-secondary uppercase tracking-wider">Pending</span>
+            </div>
+        </div>
+    </div>
+</section><section class="bg-surface-container-lowest border border-outline-variant rounded-DEFAULT overflow-hidden">
+<div class="bg-surface-container border-b border-outline-variant px-4 py-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">add_box</span>
+<h2 class="font-title-sm text-title-sm text-on-surface">Create New Project Workspace</h2>
+</div>
+<div class="p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Left Col: Details -->
+<div class="lg:col-span-5 flex flex-col gap-5">
+<h3 class="font-mono-label text-mono-label text-outline uppercase tracking-wider mb-2">Project Meta-Data</h3>
+<div>
+<label class="block font-body-sm text-body-sm text-secondary mb-1">Project Identifier / Name</label>
+<input class="w-full bg-surface border border-outline-variant rounded-none px-3 py-2 font-data-cell text-data-cell text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="e.g. TR-2024 Alpha Facility" type="text">
+</div>
+<div>
+<label class="block font-body-sm text-body-sm text-secondary mb-1">Client Entity</label>
+<input class="w-full bg-surface border border-outline-variant rounded-none px-3 py-2 font-data-cell text-data-cell text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" placeholder="e.g. Global Logistics Inc." type="text">
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block font-body-sm text-body-sm text-secondary mb-1">Region Code</label>
+<select class="w-full bg-surface border border-outline-variant rounded-none px-3 py-2 font-data-cell text-data-cell text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all">
+<option>EMEA-N</option>
+<option>EMEA-S</option>
+<option>APAC</option>
+<option>NA-E</option>
+</select>
+</div>
+<div>
+<label class="block font-body-sm text-body-sm text-secondary mb-1">Target Currency</label>
+<select class="w-full bg-surface border border-outline-variant rounded-none px-3 py-2 font-data-cell text-data-cell text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all">
+<option>USD ($)</option>
+<option>EUR (€)</option>
+<option>GBP (£)</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Right Col: Scope Selection -->
+<div class="lg:col-span-7 flex flex-col gap-4">
+<div class="flex justify-between items-end mb-2">
+<h3 class="font-mono-label text-mono-label text-outline uppercase tracking-wider">Scope of Works / Project Phasing Selection</h3>
+<span class="font-body-sm text-body-sm text-secondary-container bg-inverse-surface px-2 py-0.5 rounded-DEFAULT">Required</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- Checkbox Item -->
+<label class="flex items-start gap-3 p-3 border border-outline-variant bg-surface hover:border-primary-container/50 cursor-pointer transition-colors group">
+<div class="mt-0.5">
+<input class="w-4 h-4 text-primary-container border-outline-variant rounded-none focus:ring-primary-container focus:ring-offset-0 bg-surface" type="checkbox">
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">External &amp; Earthworks</span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">Site prep, excavation, grading.</span>
+</div>
+</label>
+<!-- Checkbox Item -->
+<label class="flex items-start gap-3 p-3 border border-outline-variant bg-surface hover:border-primary-container/50 cursor-pointer transition-colors group">
+<div class="mt-0.5">
+<input class="w-4 h-4 text-primary-container border-outline-variant rounded-none focus:ring-primary-container focus:ring-offset-0 bg-surface" type="checkbox">
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Substructure / Foundations</span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">Piling, ground beams, slabs.</span>
+</div>
+</label>
+<!-- Checkbox Item -->
+<label class="flex items-start gap-3 p-3 border border-outline-variant bg-surface hover:border-primary-container/50 cursor-pointer transition-colors group">
+<div class="mt-0.5">
+<input class="w-4 h-4 text-primary-container border-outline-variant rounded-none focus:ring-primary-container focus:ring-offset-0 bg-surface" type="checkbox">
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Superstructure</span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">Concrete frame &amp; walling.</span>
+</div>
+</label>
+<!-- Checkbox Item -->
+<label class="flex items-start gap-3 p-3 border border-outline-variant bg-surface hover:border-primary-container/50 cursor-pointer transition-colors group">
+<div class="mt-0.5">
+<input class="w-4 h-4 text-primary-container border-outline-variant rounded-none focus:ring-primary-container focus:ring-offset-0 bg-surface" type="checkbox">
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Roofing &amp; Steelwork</span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">Structural trusses, cladding.</span>
+</div>
+</label>
+<!-- Checkbox Item -->
+<label class="flex items-start gap-3 p-3 border border-outline-variant bg-surface hover:border-primary-container/50 cursor-pointer transition-colors group">
+<div class="mt-0.5">
+<input class="w-4 h-4 text-primary-container border-outline-variant rounded-none focus:ring-primary-container focus:ring-offset-0 bg-surface" type="checkbox">
+</div>
+<div class="flex flex-col">
+<span class="font-title-sm text-title-sm text-on-surface group-hover:text-primary transition-colors">Finishes &amp; MEP</span>
+<span class="font-body-sm text-body-sm text-secondary mt-0.5">Internal works and services.</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="bg-surface border-t border-outline-variant px-6 py-4 flex justify-end gap-3">
+<button class="px-4 py-2 border border-inverse-surface bg-transparent text-inverse-surface font-title-sm text-title-sm rounded-none hover:bg-surface-variant transition-colors">
+                        Cancel
+                    </button>
+<button class="px-6 py-2 bg-primary-container text-on-primary font-title-sm text-title-sm rounded-none hover:bg-surface-tint transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                        Initialize Project Sandbox
+                    </button>
+</div>
+</section>
+</div>
+</main>
+
+
+</body></html>
