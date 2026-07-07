@@ -1,5 +1,13 @@
 # TBEC QMX — Project Brain
 
+## Session Startup Procedure (MANDATORY)
+
+Every session, in this order:
+1. **Read `PROJECT_BRAIN.md`** — re-establish full context
+2. **Pull latest from Stitch** — call `list_projects` via MCP to get project `8908668467853350098`, then `get_screen` for all 15 screen IDs to check for design changes. If any screen content changed, re-download using `scripts/download-all.ps1` and flag the delta.
+3. **`git pull origin main`** — sync any remote changes
+4. **`npm run build`** — verify the app still compiles cleanly before making changes
+
 ## Identity
 
 - **Product:** TBEC QMX (Quantity Measurement & Exchange)
@@ -115,7 +123,7 @@ tbec-qmx/
 
 - [x] Next.js scaffold + Stitch MCP connected
 - [x] DESIGN.md extracted from Stitch
-- [x] All 15 Stitch screens downloaded (HTML, PNG, JSON)
+- [x] All 16 Stitch screens downloaded (HTML, PNG, JSON)
 - [x] globals.css with full design tokens
 - [x] Shared app shell (sidebar + header)
 - [x] 4 route pages built (dashboard, takeoff, boq, rates)
