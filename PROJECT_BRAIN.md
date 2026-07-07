@@ -4,7 +4,7 @@
 
 Every session, in this order:
 1. **Read `PROJECT_BRAIN.md`** — re-establish full context
-2. **Pull latest from Stitch** — call `list_projects` via MCP to get project `8908668467853350098`, then `get_screen` for all 15 screen IDs to check for design changes. If any screen content changed, re-download using `scripts/download-all.ps1` and flag the delta.
+2. **Pull latest from Stitch** — call `list_projects` via MCP to get project `8908668467853350098`, then `get_screen` for all 16 screen IDs to check for design changes. If any screen content changed, re-download using `scripts/download-all.ps1` and flag the delta.
 3. **`git pull origin main`** — sync any remote changes
 4. **`npm run build`** — verify the app still compiles cleanly before making changes
 
@@ -28,6 +28,15 @@ Every session, in this order:
 | Fonts | Inter (UI) + JetBrains Mono (data) | via next/font/google |
 | Icons | Material Symbols Outlined | CDN Google Fonts |
 | Design MCP | `@_davideast/stitch-mcp` | npm proxy → `stitch.googleapis.com/mcp` |
+
+## Architecture
+
+- **Next.js 16 App Router** — server components by default, `"use client"` where interactivity needed
+- **Prisma 7** ORM with `@prisma/adapter-pg` (not the default binary engine)
+- **PostgreSQL 16.8** — portable zip install, runs on `localhost:5432`
+- **Data fetching:** server components query Prisma directly (no API route intermediate). Enables static pre-rendering at build time.
+- **Client components:** interactive pages use `useState` for local UI state (phase tabs, category tabs, search). Data passed as props from parent server components.
+- **API routes** (`/api/*`) exist for external clients; not consumed by frontend pages.
 
 ## Critical Next.js 16 Deviations
 
@@ -128,11 +137,13 @@ tbec-qmx/
 - [x] Shared app shell (sidebar + header)
 - [x] 4 route pages built (dashboard, takeoff, boq, rates)
 - [x] Build passes cleanly (Next.js 16 static generation)
+- [x] Build passes cleanly (Next.js 16 static generation)
+- [x] Live data persistence (PostgreSQL + Prisma direct in server components)
+- [x] API routes for external client consumption
 - [ ] Active nav state in sidebar (currently all hover-only, no JS for current route)
 - [ ] Client-side navigation (currently `<a>` tags cause full reload)
 - [ ] Responsive/mobile adaptation
 - [ ] Real DWG/PDF upload for takeoff blueprint
-- [ ] Live data persistence (DB, API)
 - [ ] Authentication / tenant switching
 - [ ] Dark mode toggle (design supports via `darkMode: "class"`)
 
@@ -143,9 +154,10 @@ tbec-qmx/
 - `app/(main)/layout.tsx:4-10` — nav items array
 - `app/page.tsx:2-39` — landing page screens array
 - `app/(main)/dashboard/page.tsx:1-5` — projects data array
-- `app/(main)/takeoff/page.tsx:5-11` — measurements data array
-- `app/(main)/boq/page.tsx:1-9` — boqItems data array
-- `app/(main)/rates/page.tsx:6-16` — materials data array + `tabs` array
+- `app/(main)/takeoff/page.tsx` — server component (Prisma fetch) → `TakeoffClient` in `client.tsx`
+- `app/(main)/rates/page.tsx` — server component (Prisma fetch) → `RatesClient` in `client.tsx`
+- `app/(main)/takeoff/client.tsx` — "use client" with phase switcher state
+- `app/(main)/rates/client.tsx` — "use client" with category tabs + search filter
 
 ## Commands
 
